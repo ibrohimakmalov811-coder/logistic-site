@@ -83,4 +83,4 @@ Enable 2FA using a hardware key (YubiKey) or an authenticator app (Google Authen
 
 ## 3. Vulnerability Reporting
 
-If you discover a security vulnerability in this project, please notify the platform administrator at `contact@logistika.uz` (or your configured security email) instead of opening a public GitHub issue.
+If you discover a security vulnerability in this project, please notify the platform administrator via your configured security contact email instead of opening a public GitHub issue.

@@ -17,6 +17,8 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+import { MOCK_VEHICLES, getMockRoute } from "@/data/mock";
+
 export function ProductPreviewSection() {
   const t = useTranslations("productPreview");
   const locale = useLocale() as "uz" | "ru" | "en";
@@ -112,26 +114,18 @@ export function ProductPreviewSection() {
               <div className="flex flex-wrap items-center justify-between gap-3 pb-2">
                 <div>
                   <h4 className="text-base font-bold text-foreground">
-                    {locale === "uz"
-                      ? "Kunlik reyslar jadvali"
-                      : locale === "ru"
-                        ? "Суточный график рейсов"
-                        : "Daily Dispatch Board"}
+                    {t("dispatchBoardTitle")}
                   </h4>
                   <p className="text-xs text-muted-foreground">
-                    {locale === "uz"
-                      ? "Jami 8 ta faol marshrut nazoratda"
-                      : locale === "ru"
-                        ? "Всего 8 активных маршрутов"
-                        : "8 active routes tracked"}
+                    {t("dispatchBoardSubtitle")}
                   </p>
                 </div>
                 <div className="flex gap-2">
                   <span className="text-xs font-semibold px-2.5 py-1 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                    {"6 mashina yo'lda"}
+                    {t("trucksOnWayBadge")}
                   </span>
                   <span className="text-xs font-semibold px-2.5 py-1 rounded-lg bg-primary/10 text-primary border border-primary/20">
-                    2 ta kutishda
+                    {t("waitingBadge")}
                   </span>
                 </div>
               </div>
@@ -141,70 +135,49 @@ export function ProductPreviewSection() {
                 <table className="w-full text-left text-xs sm:text-sm">
                   <thead className="border-b border-border/60 bg-muted/40 text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
                     <tr>
-                      <th className="px-4 py-3">ID / Mashina</th>
-                      <th className="px-4 py-3">Marshrut</th>
-                      <th className="px-4 py-3">Haydovchi</th>
-                      <th className="px-4 py-3">Status</th>
-                      <th className="px-4 py-3">ETA</th>
+                      <th className="px-4 py-3">{t("colIdVehicle")}</th>
+                      <th className="px-4 py-3">{t("colRoute")}</th>
+                      <th className="px-4 py-3">{t("colDriver")}</th>
+                      <th className="px-4 py-3">{t("colStatus")}</th>
+                      <th className="px-4 py-3">{t("colEta")}</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-border/40 font-medium">
-                    <tr className="hover:bg-card/40 transition-colors">
-                      <td className="px-4 py-3">
-                        <span className="font-mono font-bold text-foreground">
-                          01 789 AFA
-                        </span>
-                        <span className="block text-[11px] text-muted-foreground">
-                          Isuzu 5t
-                        </span>
-                      </td>
-                      <td className="px-4 py-3">Toshkent → Samarqand</td>
-                      <td className="px-4 py-3">Alisher Qodirov</td>
-                      <td className="px-4 py-3">
-                        <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-primary bg-primary/10 px-2 py-0.5 rounded-full border border-primary/20">
-                          <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
-                          Harakatda
-                        </span>
-                      </td>
-                      <td className="px-4 py-3 font-mono text-xs">14:30</td>
-                    </tr>
-                    <tr className="hover:bg-card/40 transition-colors">
-                      <td className="px-4 py-3">
-                        <span className="font-mono font-bold text-foreground">
-                          10 456 BBA
-                        </span>
-                        <span className="block text-[11px] text-muted-foreground">
-                          MAN 20t
-                        </span>
-                      </td>
-                      <td className="px-4 py-3">Toshkent → Andijon</td>
-                      <td className="px-4 py-3">Jamshid Boboyev</td>
-                      <td className="px-4 py-3">
-                        <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded-full border border-amber-500/20">
-                          Yuk tushirmoqda
-                        </span>
-                      </td>
-                      <td className="px-4 py-3 font-mono text-xs">Yetib bordi</td>
-                    </tr>
-                    <tr className="hover:bg-card/40 transition-colors">
-                      <td className="px-4 py-3">
-                        <span className="font-mono font-bold text-foreground">
-                          80 112 CAA
-                        </span>
-                        <span className="block text-[11px] text-muted-foreground">
-                          Isuzu 7t
-                        </span>
-                      </td>
-                      <td className="px-4 py-3">Buxoro → Qarshi</td>
-                      <td className="px-4 py-3">Farhod Mahmudov</td>
-                      <td className="px-4 py-3">
-                        <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
-                          <CheckCircle2 className="h-3 w-3" />
-                          Topshirildi (PoD)
-                        </span>
-                      </td>
-                      <td className="px-4 py-3 font-mono text-xs">11:45</td>
-                    </tr>
+                    {MOCK_VEHICLES.map((v) => (
+                      <tr key={v.id} className="hover:bg-card/40 transition-colors">
+                        <td className="px-4 py-3">
+                          <span className="font-mono font-bold text-foreground">
+                            {v.plate}
+                          </span>
+                          <span className="block text-[11px] text-muted-foreground">
+                            {v.model}
+                          </span>
+                        </td>
+                        <td className="px-4 py-3">{getMockRoute(v, locale)}</td>
+                        <td className="px-4 py-3">{v.driverFullName[locale] || v.driverFullName.uz}</td>
+                        <td className="px-4 py-3">
+                          <span
+                            className={cn(
+                              "inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-0.5 rounded-full border",
+                              v.status === "delivered"
+                                ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
+                                : v.status === "unloading"
+                                  ? "bg-amber-500/10 text-amber-400 border-amber-500/20"
+                                  : "bg-primary/10 text-primary border-primary/20"
+                            )}
+                          >
+                            {v.status === "moving" && (
+                              <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
+                            )}
+                            {v.status === "delivered" && (
+                              <CheckCircle2 className="h-3 w-3" />
+                            )}
+                            {v.statusText[locale] || v.statusText.uz}
+                          </span>
+                        </td>
+                        <td className="px-4 py-3 font-mono text-xs">{v.eta[locale] || v.eta.uz}</td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>
@@ -217,22 +190,14 @@ export function ProductPreviewSection() {
               <div className="flex items-center justify-between pb-2">
                 <div>
                   <h4 className="text-base font-bold text-foreground">
-                    {locale === "uz"
-                      ? "Jonli telematika xaritasi"
-                      : locale === "ru"
-                        ? "Телематическая карта"
-                        : "Live Telematics Map"}
+                    {t("telematicsMapTitle")}
                   </h4>
                   <p className="text-xs text-muted-foreground">
-                    {locale === "uz"
-                      ? "GPS trekerlar va Telegram orqali uzatilayotgan nuqtalar"
-                      : locale === "ru"
-                        ? "Координаты с GPS-трекеров и Telegram"
-                        : "GPS tracker feeds and coordinates"}
+                    {t("telematicsMapSubtitle")}
                   </p>
                 </div>
-                <span className="text-xs font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-lg border border-emerald-500/25">
-                  100% Onlayn
+                <span className="text-xs font-mono text-amber-500 bg-amber-500/10 px-2.5 py-1 rounded-lg border border-amber-500/25">
+                  {t("telematicsConceptBadge")}
                 </span>
               </div>
 
@@ -259,33 +224,35 @@ export function ProductPreviewSection() {
                 <div className="relative z-10 grid grid-cols-1 sm:grid-cols-3 gap-3">
                   <div className="rounded-xl border border-border/80 bg-card/95 p-3 shadow-md">
                     <span className="text-[10px] text-muted-foreground uppercase font-bold">
-                      Hozirgi tezlik
+                      {t("speedLabel")}
                     </span>
                     <p className="text-lg font-mono font-bold text-foreground">
-                      78 km/soat
+                      {t("speedValue")}
                     </p>
                     <span className="text-[10px] text-emerald-400">
-                      {"Tezlik me'yorida"}
+                      {t("speedStatus")}
                     </span>
                   </div>
                   <div className="rounded-xl border border-border/80 bg-card/95 p-3 shadow-md">
                     <span className="text-[10px] text-muted-foreground uppercase font-bold">
-                      {"To'xtash vaqti"}
+                      {t("stopDurationLabel")}
                     </span>
                     <p className="text-lg font-mono font-bold text-foreground">
-                      0 daqiqa
+                      {t("stopDurationValue")}
                     </p>
                     <span className="text-[10px] text-primary">
-                      {"To'xtovsiz harakat"}
+                      {t("stopDurationStatus")}
                     </span>
                   </div>
                   <div className="rounded-xl border border-border/80 bg-card/95 p-3 shadow-md">
                     <span className="text-[10px] text-muted-foreground uppercase font-bold">
-                      Samarqandgacha masofa
+                      {t("distanceToDestinationLabel")}
                     </span>
-                    <p className="text-lg font-mono font-bold text-foreground">114 km</p>
+                    <p className="text-lg font-mono font-bold text-foreground">
+                      {t("distanceToDestinationValue")}
+                    </p>
                     <span className="text-[10px] text-amber-400">
-                      Kutilayotgan ETA: 14:30
+                      {t("estimatedEta")}
                     </span>
                   </div>
                 </div>
@@ -293,11 +260,13 @@ export function ProductPreviewSection() {
                 <div className="relative z-10 mt-6 rounded-xl border border-border/80 bg-card/90 p-3 flex items-center justify-between text-xs">
                   <div className="flex items-center gap-2">
                     <Truck className="h-4 w-4 text-primary" />
-                    <span className="font-bold text-foreground">01 789 AFA</span>
-                    <span className="text-muted-foreground">— Alisher Q. (Isuzu 5t)</span>
+                    <span className="font-bold text-foreground">{MOCK_VEHICLES[0].plate}</span>
+                    <span className="text-muted-foreground">
+                      — {MOCK_VEHICLES[0].driverShortName[locale] || MOCK_VEHICLES[0].driverShortName.uz} ({MOCK_VEHICLES[0].model})
+                    </span>
                   </div>
                   <span className="font-mono text-muted-foreground text-[11px]">
-                    Oxirgi ping: 12 soniya oldin
+                    {t("lastPing")}
                   </span>
                 </div>
               </div>
@@ -310,22 +279,14 @@ export function ProductPreviewSection() {
               <div className="flex items-center justify-between pb-2">
                 <div>
                   <h4 className="text-base font-bold text-foreground">
-                    {locale === "uz"
-                      ? "Reyslar va haydovchilar unumdorligi"
-                      : locale === "ru"
-                        ? "Отчетность и продуктивность"
-                        : "Fleet Performance & Cost Metrics"}
+                    {t("reportsTitle")}
                   </h4>
                   <p className="text-xs text-muted-foreground">
-                    {locale === "uz"
-                      ? "Avtomatik hisoblangan ko'rsatkichlar namunalari"
-                      : locale === "ru"
-                        ? "Автоматический расчет ключевых метрик"
-                        : "Automated performance benchmarks"}
+                    {t("reportsSubtitle")}
                   </p>
                 </div>
                 <span className="text-xs font-semibold px-2.5 py-1 rounded-lg bg-primary/10 text-primary border border-primary/20">
-                  Haftalik hisobot
+                  {t("weeklyReportBadge")}
                 </span>
               </div>
 
@@ -333,37 +294,37 @@ export function ProductPreviewSection() {
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="rounded-2xl border border-border/60 bg-background/50 p-4">
                   <span className="text-xs font-medium text-muted-foreground">
-                    {"O'z vaqtida yetkazish intizomi"}
+                    {t("onTimeMetricTitle")}
                   </span>
                   <div className="mt-2 text-2xl font-bold font-heading text-emerald-400">
                     94.2%
                   </div>
                   <p className="mt-1 text-[11px] text-muted-foreground">
-                    Hafta davomida +3.4% yaxshilanish maqsadi
+                    {t("onTimeMetricTarget")}
                   </p>
                 </div>
 
                 <div className="rounded-2xl border border-border/60 bg-background/50 p-4">
                   <span className="text-xs font-medium text-muted-foreground">
-                    Telegram PoD qamrovi
+                    {t("podCoverageTitle")}
                   </span>
                   <div className="mt-2 text-2xl font-bold font-heading text-primary">
                     98.0%
                   </div>
                   <p className="mt-1 text-[11px] text-muted-foreground">
-                    Barcha yuk xatlari foto-dalil bilan yopildi
+                    {t("podCoverageTarget")}
                   </p>
                 </div>
 
                 <div className="rounded-2xl border border-border/60 bg-background/50 p-4">
                   <span className="text-xs font-medium text-muted-foreground">
-                    {"O'rtacha reys vaqti"}
+                    {t("avgTripDurationTitle")}
                   </span>
                   <div className="mt-2 text-2xl font-bold font-heading text-amber-400">
-                    4 soat 20 daq
+                    4h 20m
                   </div>
                   <p className="mt-1 text-[11px] text-muted-foreground">
-                    {"Kechikishlar sabablari bo'yicha tahlil"}
+                    {t("avgTripDurationTarget")}
                   </p>
                 </div>
               </div>
@@ -371,12 +332,12 @@ export function ProductPreviewSection() {
               {/* Delay distribution illustration */}
               <div className="rounded-2xl border border-border/60 bg-background/50 p-4">
                 <h5 className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-3">
-                  Kechikish sabablari taqsimoti (Namunaviy diagramma)
+                  {t("delayDistributionTitle")}
                 </h5>
                 <div className="space-y-2 text-xs">
                   <div>
                     <div className="flex justify-between text-muted-foreground mb-1">
-                      <span>Yuklash/Tushirish navbati omborda</span>
+                      <span>{t("delayCauseWarehouse")}</span>
                       <span className="font-mono">55%</span>
                     </div>
                     <div className="h-2 rounded-full bg-border overflow-hidden">
@@ -388,7 +349,7 @@ export function ProductPreviewSection() {
                   </div>
                   <div>
                     <div className="flex justify-between text-muted-foreground mb-1">
-                      <span>{"Yo'ldagi tirbandliklar (Shaharga kirish)"}</span>
+                      <span>{t("delayCauseTraffic")}</span>
                       <span className="font-mono">30%</span>
                     </div>
                     <div className="h-2 rounded-full bg-border overflow-hidden">
@@ -400,7 +361,7 @@ export function ProductPreviewSection() {
                   </div>
                   <div>
                     <div className="flex justify-between text-muted-foreground mb-1">
-                      <span>Boshqa sabablar</span>
+                      <span>{t("delayCauseOther")}</span>
                       <span className="font-mono">15%</span>
                     </div>
                     <div className="h-2 rounded-full bg-border overflow-hidden">

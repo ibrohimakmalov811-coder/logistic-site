@@ -40,7 +40,7 @@ export function SocialProofPlaceholder() {
               >
                 <div className="flex items-center gap-2">
                   <Building2 className="h-4 w-4 opacity-40" aria-hidden="true" />
-                  <span>Hamkor #{slot}</span>
+                  <span>{t("partnerSlot", { slot })}</span>
                 </div>
               </div>
             ))}

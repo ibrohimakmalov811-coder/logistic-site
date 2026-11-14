@@ -27,7 +27,7 @@ export const env = createEnv({
     NEXT_PUBLIC_SUPABASE_URL: z.string().url().optional(),
     NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().optional(),
     // Site URL for canonical URLs and Open Graph
-    NEXT_PUBLIC_SITE_URL: z.string().url().default("https://logistika.uz"),
+    NEXT_PUBLIC_SITE_URL: z.string().url().default("https://transflow.uz"),
   },
   experimental__runtimeEnv: {
     NEXT_PUBLIC_TURNSTILE_SITE_KEY: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY,

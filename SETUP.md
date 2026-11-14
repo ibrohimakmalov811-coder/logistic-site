@@ -65,8 +65,8 @@ The application integrates with 5 standard cloud services. You will create free-
 
 1. Log in to the [Cloudflare Dashboard](https://dash.cloudflare.com/) and navigate to **Turnstile** in the left menu.
 2. Click **Add Site**:
-   - **Site name:** `Logistika Waitlist`
-   - **Domain:** enter `localhost` (for testing) and your actual production domain (e.g. `logistika.uz`).
+   - **Site name:** `TransFlow Waitlist`
+   - **Domain:** enter `localhost` (for testing) and your actual production domain (e.g. `transflow.uz`).
    - **Widget Mode:** Managed (recommended).
 3. Click **Create**:
    - Copy the **Site Key** → this will be `NEXT_PUBLIC_TURNSTILE_SITE_KEY`.
@@ -77,13 +77,13 @@ The application integrates with 5 standard cloud services. You will create free-
 ## Step 5: Configure Environment Variables in Vercel
 
 1. Log in to [Vercel](https://vercel.com/) and click **Add New > Project**.
-2. Import your GitHub repository (`logistika-uz`).
+2. Import your GitHub repository.
 3. Under **Environment Variables**, add the following keys and paste the values copied in Steps 2–4:
 
 | Variable Name | Description | Where to find it |
 | :--- | :--- | :--- |
 | `NODE_ENV` | Environment mode | Set to `production` |
-| `NEXT_PUBLIC_SITE_URL` | Canonical site URL | e.g. `https://logistika.uz` |
+| `NEXT_PUBLIC_SITE_URL` | Canonical site URL | e.g. `https://transflow.uz` |
 | `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | Turnstile public key | Cloudflare > Turnstile > Site Key |
 | `TURNSTILE_SECRET_KEY` | Turnstile secret key | Cloudflare > Turnstile > Secret Key |
 | `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL | Supabase > Project Settings > API > Project URL |
@@ -104,7 +104,7 @@ The application integrates with 5 standard cloud services. You will create free-
 
 ## Step 7: Connect Custom Domain & Cloudflare DNS
 
-1. In Vercel, navigate to **Settings > Domains** and add your custom domain (e.g. `logistika.uz`).
+1. In Vercel, navigate to **Settings > Domains** and add your custom domain (e.g. `transflow.uz`).
 2. Go to your Cloudflare DNS dashboard and add the records specified by Vercel:
    - `CNAME` for `www` pointing to `cname.vercel-dns.com`
    - `A` record for `@` (root) pointing to `76.76.21.21` (or proxied through Cloudflare).
@@ -114,7 +114,7 @@ The application integrates with 5 standard cloud services. You will create free-
 
 ## Step 8: Post-Deployment Verification Checklist
 
-- [ ] **Homepage loads:** Open `https://logistika.uz/uz` in your browser.
+- [ ] **Homepage loads:** Open `https://transflow.uz/uz` in your browser.
 - [ ] **Security Headers:** Verify via [securityheaders.com](https://securityheaders.com) that CSP, HSTS, and X-Content-Type-Options are active with an A/A+ rating.
 - [ ] **Form submission:** Submit a test entry with a valid `+998` number. Confirm it appears in your Supabase `waitlist` table.
 - [ ] **Duplicate phone protection:** Submit the exact same number a second time; verify that a friendly "Already registered" notice is returned.

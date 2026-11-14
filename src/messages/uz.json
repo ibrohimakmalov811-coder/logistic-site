@@ -22,7 +22,14 @@
     "liveStatus": "Tizim holati: Erta kirish ro'yxati faol",
     "fleetTarget": "5 tadan 30 tagacha yuk mashinasiga ega korxonalar uchun",
     "ctaSignup": "Kompaniya yoki haydovchi sifatida ro'yxatdan o'tish",
-    "ctaLogin": "Shaxsiy kabinetga kirish"
+    "ctaLogin": "Shaxsiy kabinetga kirish",
+    "conceptStream": "Namunaviy ko'rinish",
+    "mockRouteStatus": "Marshrut monitoringi (Konsept)",
+    "activeTripsCount": "Namunaviy reyslar (3)",
+    "waybillDeliveredTitle": "Yuk xati #UZ-8492 topshirildi",
+    "waybillDeliveredDesc": "Haydovchi Telegram-bot orqali fotosurat yukladi",
+    "podConceptBadge": "PoD (Konsept)",
+    "demoCabinet": "Demo kabinet"
   },
   "problem": {
     "badge": "Bozor haqiqati",
@@ -31,7 +38,7 @@
     "macroContext": "O'zbekiston tashqi savdo aylanmasi 2022-yildagi $50 mlrd dan 2025-yilda $81.2 mlrd ga yetdi — yuk hajmi o'smoqda, biroq nazorat usullari eskiicha qolmoqda.",
     "beforeAfterTitle": "Eski usul va yangi yondashuv farqi",
     "beforeTitle": "Hozirgi kundalik tartibsizlik",
-    "before1": "Kuniga 40-50 ta qo'ng'iroq: «Haydovchi qayerda?», «Yuk tushdimi?»",
+    "before1": "Doimiy qo'ng'iroqlar: «Haydovchi qayerda?», «Yuk tushirildimi yoki kutyaptimi?»",
     "before2": "Mijoz va haydovchi bilan 10 xil Telegram guruh va tarqoq cheklar",
     "before3": "Qaytishda bo'sh qolgan kuzov — har bir bo'sh kilometr sof zarar",
     "before4": "Yoqilg'i, kechikish va xarajatlar bo'yicha aniq hisobot yo'q",
@@ -39,7 +46,11 @@
     "after1": "Bir ekranda barcha haydovchilar, buyurtmalar va mashinalar holati",
     "after2": "Haydovchi Telegram-bot orqali fotosurat va imzo yuboradi, mijozga darhol xabar boradi",
     "after3": "Qaytish yo'nalishidagi bo'sh joylarni to'ldirish uchun tizimli moslashtirish",
-    "after4": "Har bir reys narxi, haydovchi samaradorligi va kechikishlar bo'yicha tahlil"
+    "after4": "Har bir reys narxi, haydovchi samaradorligi va kechikishlar bo'yicha tahlil",
+    "sourcePrefix": "Manba:",
+    "researchSource": "Tadqiqot manbasi:",
+    "statMany": "Ko'plab",
+    "macroGrowthNote": "manba ma'lumotlari asosidagi hisob-kitob: +62% o'sish"
   },
   "howItWorks": {
     "badge": "Jarayon",
@@ -47,7 +58,7 @@
     "subtitle": "Og'ir va murakkab dasturlarni o'rnatish shart emas. Dispetcher kompyuterda, haydovchi esa Telegram'da ishlaydi.",
     "step1Number": "01",
     "step1Title": "Buyurtmani kiritish",
-    "step1Desc": "Dispetcher veb-panelda yuk ma'lumotlari, manzil va muddatni kiritadi yoki mijozdan kelgan so'rovni 1 daqiqada tasdiqlaydi.",
+    "step1Desc": "Dispetcher veb-panelda reys ma'lumotlari, manzil va muddatni kiritadi yoki mijoz arizasini tasdiqlaydi.",
     "step2Number": "02",
     "step2Title": "Haydovchiga biriktirish va jonli kuzatish",
     "step2Desc": "Haydovchi shaxsiy Telegram-botida yangi topshiriqni oladi. Dispetcher va mijoz marshrutni real vaqtda xaritada ko'rib turadi.",
@@ -83,7 +94,14 @@
     "emptyReturnTitle": "An'anaviy qaytish (Bo'sh)",
     "emptyReturnDesc": "Ortga bo'sh qaytish: yoqilg'i, amortizatsiya va haydovchi vaqti daromadsiz sarflanadi.",
     "matchedReturnTitle": "{brand} bilan qaytish (Yuklangan)",
-    "matchedReturnDesc": "Qaytish marshrutidagi mavjud partiyaviy yoki to'liq yuklar bilan moslashtirish — har bir kilometrdan foyda olish maqsadi."
+    "matchedReturnDesc": "Qaytish marshrutidagi mavjud partiyaviy yoki to'liq yuklar bilan moslashtirish — har bir kilometrdan foyda olish maqsadi.",
+    "loadedStatus": "Yuklangan",
+    "emptyTruckStatus": "Bo'sh qaytish",
+    "traditionalReturnBadge": "An'anaviy holat",
+    "traditionalReturnDrawback": "Yoqilg'i va amortizatsiya sarfi daromadsiz qoladi",
+    "platformGoalBadge": "Tizimli maqsad",
+    "matchedReturnBadge": "Qaytish yuki bilan",
+    "matchedReturnAdvantage": "Bo'sh yurish kilometrlarini kamaytirish maqsadi"
   },
   "whoIsItFor": {
     "badge": "Kimlar uchun",
@@ -94,7 +112,7 @@
     "c1Pain": "Avtomobillar qayerda yurganini bilmaslik, haydovchilar bilan tinimsiz qo'ng'iroqlar, bo'sh qaytishdagi zararlar.",
     "c1Benefit": "Reyslar ustidan to'liq shaffoflik, har bir haydovchi nazorati va reys daromadliligi oshishi.",
     "c2Title": "Logistika dispetcherlari",
-    "c2Fleet": "Kunlik 10–50 ta reysni muvofiqlashtiruvchilar",
+    "c2Fleet": "Har kuni ko'plab reyslarni muvofiqlashtirish",
     "c2Pain": "Daftardagi yozuvlar, chalkash Excel jadvallari, mijozlarning «Yukim qayerda?» degan tinimsiz savollari.",
     "c2Benefit": "Barcha buyurtmalar bitta ekranda, buyurtma statusini mijozga avtomatik yetkazish va hujjatlar tartibi.",
     "c3Title": "Mahalliy distribyutorlar va FMCG",
@@ -111,7 +129,42 @@
     "tabDispatch": "Dispetcherlik doskasi",
     "tabTracking": "Jonli GPS xaritasi",
     "tabReports": "Reyslar tahlili",
-    "illustrativeTag": "Konseptual dizayn — ishlab chiqish bosqichida"
+    "illustrativeTag": "Konseptual dizayn — ishlab chiqish bosqichida",
+    "dispatchBoardTitle": "Kunlik reyslar jadvali",
+    "dispatchBoardSubtitle": "Jami 3 ta namunaviy marshrut nazoratda",
+    "trucksOnWayBadge": "Mashinalar yo'lda",
+    "waitingBadge": "Kutishda",
+    "colIdVehicle": "ID / Mashina",
+    "colRoute": "Marshrut",
+    "colDriver": "Haydovchi",
+    "colStatus": "Holat",
+    "colEta": "Yetib borish (ETA)",
+    "telematicsMapTitle": "Telematika xaritasi (Konsept)",
+    "telematicsMapSubtitle": "Namunaviy marshrut va telematika ko'rsatkichlari",
+    "telematicsConceptBadge": "Telematika (Namunaviy)",
+    "speedLabel": "Hozirgi tezlik",
+    "speedValue": "72 km/soat",
+    "speedStatus": "Tezlik me'yorida",
+    "stopDurationLabel": "To'xtash vaqti",
+    "stopDurationValue": "0 daqiqa",
+    "stopDurationStatus": "To'xtovsiz harakat",
+    "distanceToDestinationLabel": "Manzilgacha masofa",
+    "distanceToDestinationValue": "114 km",
+    "estimatedEta": "Kutilayotgan vaqt: 14:30",
+    "lastPing": "Namunaviy yangilanish: 12 soniya oldin",
+    "reportsTitle": "Reyslar unumdorligi (Maqsadli ko'rsatkichlar)",
+    "reportsSubtitle": "Rejalashtirilgan hisob-kitoblar va namunaviy tahlillar",
+    "weeklyReportBadge": "Haftalik hisobot (Namuna)",
+    "onTimeMetricTitle": "O'z vaqtida yetkazish intizomi",
+    "onTimeMetricTarget": "Tizimli maqsadli intizom",
+    "podCoverageTitle": "Foto-dalil (PoD) qamrovi",
+    "podCoverageTarget": "Har bir reys foto-dalil bilan yopilishi ko'zda tutilgan",
+    "avgTripDurationTitle": "O'rtacha reys vaqti",
+    "avgTripDurationTarget": "Yo'nalishlar bo'yicha tahliliy monitoring",
+    "delayDistributionTitle": "Kechikish sabablari taqsimoti (Namunaviy diagramma)",
+    "delayCauseWarehouse": "Omborda yuklash/tushirish navbati",
+    "delayCauseTraffic": "Yo'ldagi tirbandliklar (Shaharga kirish)",
+    "delayCauseOther": "Boshqa sabablar"
   },
   "earlyAccess": {
     "badge": "Erta kirish imkoniyati",
@@ -119,8 +172,8 @@
     "subtitle": "Hozirda ro'yxatdan o'tgan avtopark egalari va dispetcherlar uchun maxsus shartlar tayyorlanmoqda (belgilangan tariflar keyinroq e'lon qilinadi):",
     "b1Title": "Birinchi navbatda ulash (Priority onboarding)",
     "b1Desc": "Tizim ishga tushishi bilan birinchilardan bo'lib platformaga ulanish va jamoangiz uchun shaxsiy tushuntirish sessiyasi.",
-    "b2Title": "Kengaytirilgan sinov muddati",
-    "b2Desc": "Erta qatnashuvchilar uchun bepul foydalanish va barcha imkoniyatlarni o'z avtoparkida sinab ko'rish imkoni.",
+    "b2Title": "Ilk kirishning maxsus shartlari",
+    "b2Desc": "Shartlar keyinroq e'lon qilinadi.",
     "b3Title": "Mahsulot rivojiga to'g'ridan-to'g'ri ta'sir",
     "b3Desc": "Sizning avtoparkingizga kerak bo'lgan xususiyatlar birinchi navbatda ishlab chiqiladi va siz bilan birga sozlanadi.",
     "noCommitment": "Majburiyat yo'q. Istalgan vaqtda ro'yxatdan chiqishingiz mumkin."
@@ -128,9 +181,10 @@
   "socialProofPlaceholder": {
     "badge": "Ochiq yondashuv",
     "title": "Dastlabki hamkorlar guruhi shakllantirilmoqda",
-    "subtitle": "Biz soxta sharhlar yoki yolg'on statistikalar ko'rsatmaymiz. Platforma hozirda faol ishlab chiqilmoqda va O'zbekistonning dastlabki logistika kompaniyalari bilan pilot sinovlar rejalashtirilmoqda.",
+    "subtitle": "Biz o'ylab topilgan sharhlar yoki mavjud bo'lmagan mijozlar logotiplarini e'lon qilmaymiz. Mahsulot faol ishlab chiqilmoqda. Biz yopiq pilot uchun kompaniyalarni qidirmoqdamiz.",
     "tag": "Dastlabki hamkorlar: tez kunda",
-    "pilotInvitation": "Agar siz 5 tadan ko'p mashinaga ega avtopark egasi bo'lsangiz, pilot dasturda ishtirok etish uchun kutish ro'yxatiga yoziling."
+    "pilotInvitation": "Agar sizda 5 tadan ortiq yuk mashinasi bo'lsa, yopiq pilotda ishtirok etish uchun kutish ro'yxatiga qo'shiling.",
+    "partnerSlot": "Hamkor #{slot}"
   },
   "faq": {
     "badge": "Ko'p beriladigan savollar",
@@ -164,7 +218,9 @@
     "terms": "Foydalanish shartlari",
     "contactTitle": "Bog'lanish",
     "rights": "Barcha huquqlar himoyalangan.",
-    "conceptDisclaimer": "Eslatma: Saytdagi mahsulot ko'rsatkichlari va chizmalar ko'rgazmali konsepsiya hisoblanadi."
+    "conceptDisclaimer": "Eslatma: Saytdagi mahsulot ko'rsatkichlari va chizmalar ko'rgazmali konsepsiya hisoblanadi.",
+    "socialTelegram": "Telegram",
+    "socialLinkedin": "LinkedIn"
   },
   "waitlistForm": {
     "title": "Erta kirish uchun ro'yxatdan o'tish",
@@ -202,7 +258,8 @@
     "duplicateMessage": "Ushbu telefon raqami kutish ro'yxatiga avval kiritilgan. Yangiliklarni kuting, siz bilan albatta bog'lanamiz.",
     "errorGeneral": "Xatolik yuz berdi. Iltimos, ma'lumotlarni tekshirib qayta urinib ko'ring.",
     "rateLimitError": "So'rovlar soni me'yoridan oshdi. Iltimos, 10 daqiqadan keyin qaytadan urinib ko'ring.",
-    "botDetected": "Xavfsizlik tekshiruvidan o'tmadi. Sahifani yangilang."
+    "botDetected": "Xavfsizlik tekshiruvidan o'tmadi. Sahifani yangilang.",
+    "unavailable": "Ro'yxatga olish vaqtincha mavjud emas"
   },
   "validation": {
     "nameTooShort": "Ism kamida 2 ta belgidan iborat bo'lishi kerak",
@@ -338,7 +395,14 @@
       "nameRequired": "Iltimos, to'liq ismingizni kiriting.",
       "phoneRequired": "Iltimos, telefon raqamingizni kiriting.",
       "emailAlreadyExists": "Ushbu email manzili bilan allaqachon ro'yxatdan o'tilgan.",
-      "phoneAlreadyExists": "Ushbu telefon raqami bilan allaqachon ro'yxatdan o'tilgan."
+      "phoneAlreadyExists": "Ushbu telefon raqami bilan allaqachon ro'yxatdan o'tilgan.",
+      "inviteCodeLabel": "Kompaniya taklif kodi",
+      "inviteCodeHint": "Kompaniyangiz taqdim etgan bir martalik taklif kodini kiriting (talab qilinadi).",
+      "inviteCodePlaceholder": "Masalan: ABCD-2K7M",
+      "inviteCodeRequiredError": "Haydovchi va dispetcherlar uchun taklif kodi kiritilishi shart.",
+      "inviteCodeFormatError": "Taklif kodi formati noto'g'ri (Masalan: ABCD-2K7M).",
+      "temporaryPasswordHint": "Boshqa joyda ishlatiladigan parolingizni kiritmang, vaqtinchalik parol qo'llang.",
+      "emailPlaceholder": "email@example.com"
     },
     "verifyEmail": {
       "pageTitle": "Emailni tasdiqlash",
@@ -862,5 +926,9 @@
     "close": "Yopish",
     "cameraError": "Kamerani ochib bo'lmadi. Iltimos, kamera ruxsatini bering yoki galereyadan foydalaning.",
     "avatarSavedSuccess": "Avatar muvaffaqiyatli yangilandi!"
+  },
+  "demoBanner": {
+    "demoNotice": "Demo versiya: ma'lumotlar faqat ushbu brauzerda saqlanadi va xavfsiz emas. Haqiqiy parollar yoki maxfiy ma'lumotlarni kiritmang.",
+    "dismiss": "Yopish"
   }
 }

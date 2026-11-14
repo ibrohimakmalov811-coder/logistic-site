@@ -42,12 +42,20 @@ export function ProblemSection() {
             <TrendingUp className="h-6 w-6" aria-hidden="true" />
           </div>
           <div className="flex-1 text-center sm:text-left">
+            <div className="flex flex-wrap items-center gap-2 mb-1 justify-center sm:justify-start">
+              <span className="font-mono font-bold text-sm sm:text-base text-primary">
+                {locale === "ru" ? "$50 млрд → $81,2 млрд (2022 → 2025)" : locale === "uz" ? "$50 mlrd → $81.2 mlrd (2022 → 2025)" : "$50B → $81.2B (2022 → 2025)"}
+              </span>
+              <span className="text-[11px] font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-md px-2 py-0.5">
+                {t("macroGrowthNote")}
+              </span>
+            </div>
             <p className="text-xs sm:text-sm font-medium text-foreground leading-relaxed">
               {macroTradeContext.exactWording[locale] ||
                 macroTradeContext.exactWording.uz}
             </p>
             <div className="mt-1 flex items-center justify-center sm:justify-start gap-1 text-[11px] text-muted-foreground">
-              <span>Manba / Источник / Source:</span>
+              <span>{t("sourcePrefix")}</span>
               <a
                 href={macroTradeContext.sourceUrl}
                 target="_blank"
@@ -78,11 +86,7 @@ export function ProblemSection() {
                     </>
                   ) : (
                     <span className="text-3xl sm:text-4xl">
-                      {locale === "uz"
-                        ? "Ko'pchilik"
-                        : locale === "ru"
-                          ? "Большинство"
-                          : "Prevalent"}
+                      {t("statMany")}
                     </span>
                   )}
                 </div>
@@ -103,7 +107,7 @@ export function ProblemSection() {
               {/* Source Link */}
               <div className="mt-6 border-t border-border/60 pt-3 text-[11px] text-muted-foreground">
                 <span className="block text-[10px] uppercase font-bold text-muted-foreground/80 mb-0.5">
-                  Tadqiqot manbasi:
+                  {t("researchSource")}
                 </span>
                 <a
                   href={stat.sourceUrl}

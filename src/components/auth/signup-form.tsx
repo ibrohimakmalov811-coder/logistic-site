@@ -288,7 +288,7 @@ export function SignupForm({ initialRole }: SignupFormProps) {
             id="signup-email"
             type="email"
             autoComplete="email"
-            placeholder="haydovchi@logistika.uz"
+            placeholder={t("emailPlaceholder")}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="pl-10"

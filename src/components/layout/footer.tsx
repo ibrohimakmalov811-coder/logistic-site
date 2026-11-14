@@ -3,18 +3,33 @@
 import * as React from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { siteConfig } from "@/config/site";
+import { cn } from "@/lib/utils";
 import { LanguageSwitcher } from "./language-switcher";
 import { Truck, Mail, Phone, MapPin, Send, Linkedin } from "lucide-react";
 import { Link } from "@/i18n/routing";
 
 export function Footer() {
   const t = useTranslations("footer");
+  const tNav = useTranslations("nav");
   const locale = useLocale() as "uz" | "ru" | "en";
+
+  const hasEmail = Boolean(siteConfig.contact.email);
+  const hasPhone = Boolean(siteConfig.contact.phone || siteConfig.contact.phoneDisplay);
+  const hasAddress = Boolean(siteConfig.contact.address);
+  const telegramUrl = siteConfig.socials.telegramChannel || siteConfig.contact.telegramSupport;
+  const linkedinUrl = siteConfig.socials.linkedin;
+  const hasAnySocial = Boolean(telegramUrl || linkedinUrl);
+  const hasAnyContact = hasEmail || hasPhone || hasAddress || hasAnySocial;
 
   return (
     <footer className="border-t border-border/70 bg-card/90 pt-16 pb-12 text-sm text-muted-foreground">
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 lg:gap-12 pb-12">
+        <div
+          className={cn(
+            "grid grid-cols-1 gap-10 lg:gap-12 pb-12",
+            hasAnyContact ? "md:grid-cols-4" : "md:grid-cols-3"
+          )}
+        >
           {/* Brand info */}
           <div className="md:col-span-1 space-y-4">
             <div className="flex items-center gap-2.5 font-heading text-lg font-bold text-foreground">
@@ -39,7 +54,7 @@ export function Footer() {
             <ul className="space-y-2 text-sm">
               <li>
                 <a href="#problem" className="hover:text-foreground transition-colors">
-                  {locale === "uz" ? "Muammo" : locale === "ru" ? "Проблема" : "Problem"}
+                  {tNav("problem")}
                 </a>
               </li>
               <li>
@@ -47,25 +62,17 @@ export function Footer() {
                   href="#how-it-works"
                   className="hover:text-foreground transition-colors"
                 >
-                  {locale === "uz"
-                    ? "Qanday ishlaydi"
-                    : locale === "ru"
-                      ? "Как работает"
-                      : "How It Works"}
+                  {tNav("howItWorks")}
                 </a>
               </li>
               <li>
                 <a href="#features" className="hover:text-foreground transition-colors">
-                  {locale === "uz"
-                    ? "Imkoniyatlar"
-                    : locale === "ru"
-                      ? "Возможности"
-                      : "Features"}
+                  {tNav("features")}
                 </a>
               </li>
               <li>
                 <a href="#faq" className="hover:text-foreground transition-colors">
-                  {locale === "uz" ? "Savollar" : locale === "ru" ? "Вопросы" : "FAQ"}
+                  {tNav("faq")}
                 </a>
               </li>
             </ul>
@@ -90,58 +97,72 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Contact Placeholders */}
-          <div className="space-y-3">
-            <h4 className="text-xs font-semibold uppercase tracking-wider text-foreground">
-              {t("contactTitle")}
-            </h4>
-            <ul className="space-y-2.5 text-xs sm:text-sm">
-              <li className="flex items-center gap-2">
-                <Mail className="h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
-                <a
-                  href={`mailto:${siteConfig.contact.email}`}
-                  className="hover:text-foreground transition-colors"
-                >
-                  {siteConfig.contact.email}
-                </a>
-              </li>
-              <li className="flex items-center gap-2">
-                <Phone className="h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
-                <a
-                  href={`tel:${siteConfig.contact.phone}`}
-                  className="hover:text-foreground transition-colors"
-                >
-                  {siteConfig.contact.phoneDisplay}
-                </a>
-              </li>
-              <li className="flex items-center gap-2">
-                <MapPin className="h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
-                <span>{siteConfig.contact.address}</span>
-              </li>
-            </ul>
+          {/* Contact Details (Rendered strictly only if configured) */}
+          {hasAnyContact && (
+            <div className="space-y-3">
+              <h4 className="text-xs font-semibold uppercase tracking-wider text-foreground">
+                {t("contactTitle")}
+              </h4>
+              <ul className="space-y-2.5 text-xs sm:text-sm">
+                {hasEmail && (
+                  <li className="flex items-center gap-2">
+                    <Mail className="h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
+                    <a
+                      href={`mailto:${siteConfig.contact.email}`}
+                      className="hover:text-foreground transition-colors"
+                    >
+                      {siteConfig.contact.email}
+                    </a>
+                  </li>
+                )}
+                {hasPhone && (
+                  <li className="flex items-center gap-2">
+                    <Phone className="h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
+                    <a
+                      href={`tel:${siteConfig.contact.phone || siteConfig.contact.phoneDisplay}`}
+                      className="hover:text-foreground transition-colors"
+                    >
+                      {siteConfig.contact.phoneDisplay || siteConfig.contact.phone}
+                    </a>
+                  </li>
+                )}
+                {hasAddress && (
+                  <li className="flex items-center gap-2">
+                    <MapPin className="h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
+                    <span>{siteConfig.contact.address}</span>
+                  </li>
+                )}
+              </ul>
 
-            {/* Socials placeholder */}
-            <div className="pt-2 flex items-center gap-3">
-              <a
-                href={siteConfig.socials.telegramChannel}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Telegram Channel"
-                className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-border/70 bg-card/60 text-muted-foreground hover:text-foreground hover:bg-secondary/60 transition-colors"
-              >
-                <Send className="h-4 w-4" aria-hidden="true" />
-              </a>
-              <a
-                href={siteConfig.socials.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LinkedIn"
-                className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-border/70 bg-card/60 text-muted-foreground hover:text-foreground hover:bg-secondary/60 transition-colors"
-              >
-                <Linkedin className="h-4 w-4" aria-hidden="true" />
-              </a>
+              {/* Social Icon Links with Localized Aria Labels */}
+              {hasAnySocial && (
+                <div className="pt-2 flex items-center gap-3">
+                  {telegramUrl && (
+                    <a
+                      href={telegramUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Telegram"
+                      className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-border/70 bg-card/60 text-muted-foreground hover:text-foreground hover:bg-secondary/60 transition-colors"
+                    >
+                      <Send className="h-4 w-4" aria-hidden="true" />
+                    </a>
+                  )}
+                  {linkedinUrl && (
+                    <a
+                      href={linkedinUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="LinkedIn"
+                      className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-border/70 bg-card/60 text-muted-foreground hover:text-foreground hover:bg-secondary/60 transition-colors"
+                    >
+                      <Linkedin className="h-4 w-4" aria-hidden="true" />
+                    </a>
+                  )}
+                </div>
+              )}
             </div>
-          </div>
+          )}
         </div>
 
         {/* Bottom bar with copyright & concept disclaimer */}

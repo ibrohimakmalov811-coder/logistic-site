@@ -57,7 +57,7 @@ export function BackhaulSection() {
               </div>
               <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full bg-primary/15 text-primary border border-primary/30">
                 <Package className="h-3.5 w-3.5" aria-hidden="true" />
-                100% Yuklangan
+                {t("loadedStatus")}
               </span>
             </div>
           </div>
@@ -70,10 +70,10 @@ export function BackhaulSection() {
                 <div className="flex items-center justify-between mb-3">
                   <span className="flex items-center gap-1.5 text-xs font-bold text-rose-500 uppercase tracking-wide">
                     <Ban className="h-4 w-4" aria-hidden="true" />
-                    {"An'anaviy holat"}
+                    {t("traditionalReturnBadge")}
                   </span>
                   <span className="text-[10px] font-mono text-rose-500 bg-rose-500/10 px-2 py-0.5 rounded-full border border-rose-500/20">
-                    {"Bo'sh kuzov (0%)"}
+                    {t("emptyTruckStatus")}
                   </span>
                 </div>
                 <h4 className="font-heading text-lg font-bold text-foreground flex items-center gap-2">
@@ -86,7 +86,7 @@ export function BackhaulSection() {
               </div>
 
               <div className="mt-6 border-t border-rose-500/20 pt-3 text-[11px] text-rose-500/90 font-medium">
-                {"Yoqilg'i va amortizatsiya sarfi daromadsiz qoladi"}
+                {t("traditionalReturnDrawback")}
               </div>
             </div>
 
@@ -96,10 +96,10 @@ export function BackhaulSection() {
                 <div className="flex items-center justify-between mb-3">
                   <span className="flex items-center gap-1.5 text-xs font-bold text-emerald-400 uppercase tracking-wide">
                     <CheckCircle2 className="h-4 w-4" aria-hidden="true" />
-                    Tizimli maqsad
+                    {t("platformGoalBadge")}
                   </span>
                   <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/15 px-2 py-0.5 rounded-full border border-emerald-500/30">
-                    Qaytish yuki bilan
+                    {t("matchedReturnBadge")}
                   </span>
                 </div>
                 <h4 className="font-heading text-lg font-bold text-foreground flex items-center gap-2">
@@ -112,7 +112,7 @@ export function BackhaulSection() {
               </div>
 
               <div className="mt-6 border-t border-emerald-500/20 pt-3 text-[11px] text-emerald-400 font-medium">
-                {"Bo'sh yurish kilometrlarini keskin kamaytirish maqsadi"}
+                {t("matchedReturnAdvantage")}
               </div>
             </div>
           </div>

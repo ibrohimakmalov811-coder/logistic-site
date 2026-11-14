@@ -70,7 +70,7 @@ export const marketStats: MarketStatItem[] = [
   },
   {
     id: "scattered-operations-reality",
-    displayValue: "Ko'pchilik",
+    displayValue: "Ko'plab",
     exactWording: {
       uz: "Ko'plab logistika kompaniyalari haligacha yagona tizimsiz ishlaydi: buyurtmalar qo'ng'iroqlar va messenjerlar orqali qabul qilinadi, ma'lumotlar tarqoq, yuk nazorati esa qo'lda amalga oshiriladi.",
       ru: "Многие логистические компании по-прежнему работают без единой системы: заявки принимаются по звонкам и мессенджерам, данные разрознены, а контроль груза ведется вручную.",

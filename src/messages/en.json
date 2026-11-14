@@ -22,7 +22,14 @@
     "liveStatus": "Status: Early-access waitlist is open",
     "fleetTarget": "Built for transport fleets with 5 to 30 commercial trucks",
     "ctaSignup": "Sign up as a company or driver",
-    "ctaLogin": "Log in to portal"
+    "ctaLogin": "Log in to portal",
+    "conceptStream": "Concept layout",
+    "mockRouteStatus": "Route monitoring (Concept)",
+    "activeTripsCount": "Active shipments concept (3)",
+    "waybillDeliveredTitle": "Waybill #UZ-8492 Delivered",
+    "waybillDeliveredDesc": "Driver uploaded signed photo via Telegram bot",
+    "podConceptBadge": "PoD (Concept)",
+    "demoCabinet": "Demo cabinet"
   },
   "problem": {
     "badge": "Market Reality",
@@ -31,7 +38,7 @@
     "macroContext": "Uzbekistan's foreign trade turnover grew from $50B (2022) to $81.2B (2025) — cargo volume is soaring, yet operations remain heavily manual.",
     "beforeAfterTitle": "The difference between everyday chaos and unified control",
     "beforeTitle": "Everyday Messenger Chaos",
-    "before1": "40–50 calls every day: “Where is the truck?”, “Did the cargo arrive?”",
+    "before1": "Constant calls: “Where is the driver?”, “Unloaded or still waiting?”",
     "before2": "Scattered across dozens of noisy Telegram groups with drivers and customers",
     "before3": "Empty return trips — every unladen kilometer is a direct financial loss",
     "before4": "Zero unified data on fuel costs, driver delays, or true trip margin",
@@ -39,7 +46,11 @@
     "after1": "Every driver, truck, and order status visible on a single dispatcher board",
     "after2": "Drivers snap signed waybills directly into a Telegram bot; clients get instant confirmation",
     "after3": "Systematic backhaul matching to turn empty return trips into revenue",
-    "after4": "Clear automated reporting on punctuality, trip expenses, and driver efficiency"
+    "after4": "Clear automated reporting on punctuality, trip expenses, and driver efficiency",
+    "sourcePrefix": "Source:",
+    "researchSource": "Research source:",
+    "statMany": "Many",
+    "macroGrowthNote": "calculated based on source data: +62% growth"
   },
   "howItWorks": {
     "badge": "Process",
@@ -47,7 +58,7 @@
     "subtitle": "No heavy software installations or steep learning curves. Dispatchers use a clean web board; drivers stay in familiar Telegram.",
     "step1Number": "01",
     "step1Title": "Create Order",
-    "step1Desc": "Dispatchers log route details, cargo specifications, and deadlines in the web portal or approve client requests in under a minute.",
+    "step1Desc": "The dispatcher enters trip details, address, and deadline in the web panel or confirms a customer request.",
     "step2Number": "02",
     "step2Title": "Assign and Track Live",
     "step2Desc": "Drivers receive shipment briefs directly in their personal Telegram bot. Both dispatchers and clients follow real-time progress on the map.",
@@ -83,7 +94,14 @@
     "emptyReturnTitle": "Traditional Return (Empty Deadhead)",
     "emptyReturnDesc": "Unladen return journey: fuel and vehicle depreciation erode trip profit margins.",
     "matchedReturnTitle": "Return with {brand} (Backhaul Loaded)",
-    "matchedReturnDesc": "Intelligent matching with return cargo batches — targeting revenue on every traveled kilometer."
+    "matchedReturnDesc": "Intelligent matching with return cargo batches — targeting revenue on every traveled kilometer.",
+    "loadedStatus": "Loaded",
+    "emptyTruckStatus": "Empty return",
+    "traditionalReturnBadge": "Traditional situation",
+    "traditionalReturnDrawback": "Fuel and maintenance costs yield no revenue",
+    "platformGoalBadge": "Platform goal",
+    "matchedReturnBadge": "With return cargo",
+    "matchedReturnAdvantage": "Aim: minimizing empty deadhead mileage"
   },
   "whoIsItFor": {
     "badge": "Target Audience",
@@ -94,7 +112,7 @@
     "c1Pain": "Lack of visibility on truck locations, constant phone tag with drivers, and heavy losses on empty return trips.",
     "c1Benefit": "End-to-end trip transparency, objective driver accountability, and higher operating profit margins.",
     "c2Title": "Dispatchers & Freight Coordinators",
-    "c2Fleet": "Coordinating 10 to 50 shipments daily",
+    "c2Fleet": "Daily coordination of numerous trips",
     "c2Pain": "Juggling notebooks, messy spreadsheets, and answering relentless “Where is my truck?” customer calls.",
     "c2Benefit": "All shipments centralized on one clear screen, automated status updates for clients, and organized paperwork.",
     "c3Title": "Distributors & FMCG Suppliers",
@@ -111,7 +129,42 @@
     "tabDispatch": "Dispatch Board",
     "tabTracking": "Live GPS Map",
     "tabReports": "Trip Reports",
-    "illustrativeTag": "Concept design — in active development"
+    "illustrativeTag": "Concept design — in active development",
+    "dispatchBoardTitle": "Daily Dispatch Board",
+    "dispatchBoardSubtitle": "3 concept routes tracked",
+    "trucksOnWayBadge": "Trucks en route",
+    "waitingBadge": "On standby",
+    "colIdVehicle": "ID / Vehicle",
+    "colRoute": "Route",
+    "colDriver": "Driver",
+    "colStatus": "Status",
+    "colEta": "Arrival (ETA)",
+    "telematicsMapTitle": "Telematics Map (Concept)",
+    "telematicsMapSubtitle": "Illustrative route and telemetry parameters",
+    "telematicsConceptBadge": "Telematics (Concept)",
+    "speedLabel": "Current speed",
+    "speedValue": "72 km/h",
+    "speedStatus": "Within speed limit",
+    "stopDurationLabel": "Stop duration",
+    "stopDurationValue": "0 minutes",
+    "stopDurationStatus": "Continuous motion",
+    "distanceToDestinationLabel": "Distance to destination",
+    "distanceToDestinationValue": "114 km",
+    "estimatedEta": "Estimated ETA: 14:30",
+    "lastPing": "Concept update: 12 seconds ago",
+    "reportsTitle": "Fleet Performance (Target Metrics)",
+    "reportsSubtitle": "Planned benchmarks and analytical models",
+    "weeklyReportBadge": "Weekly Report (Sample)",
+    "onTimeMetricTitle": "On-time delivery discipline",
+    "onTimeMetricTarget": "Target system benchmark",
+    "podCoverageTitle": "Photo PoD coverage",
+    "podCoverageTarget": "Planned closing of every trip with photo",
+    "avgTripDurationTitle": "Average trip time",
+    "avgTripDurationTarget": "Analytical monitoring across corridors",
+    "delayDistributionTitle": "Delay breakdown (Illustrative example)",
+    "delayCauseWarehouse": "Warehouse loading/unloading queue",
+    "delayCauseTraffic": "Traffic congestion near city gates",
+    "delayCauseOther": "Other factors"
   },
   "earlyAccess": {
     "badge": "Early Access Opportunity",
@@ -119,8 +172,8 @@
     "subtitle": "Special terms for transport company owners and dispatchers who join our initial waitlist (official pricing tiers will be announced later):",
     "b1Title": "Priority Onboarding",
     "b1Desc": "First-in-line system setup for your team with dedicated personal orientation sessions upon release.",
-    "b2Title": "Extended Free Trial",
-    "b2Desc": "Full access to all platform capabilities and features on your active fleet with zero upfront software fee.",
+    "b2Title": "Special Early Access Terms",
+    "b2Desc": "Terms will be announced later.",
     "b3Title": "Direct Roadmap Influence",
     "b3Desc": "Your company's specific routing and operational workflows will directly guide our early feature roadmap.",
     "noCommitment": "No commitments required. You can opt out of the waitlist at any time."
@@ -128,9 +181,10 @@
   "socialProofPlaceholder": {
     "badge": "Honest Commitment",
     "title": "Early access partner group forming soon",
-    "subtitle": "We strictly decline to fabricate testimonials, user counts, or partner logos. The platform is currently in engineering development, and we are organizing pilot trials with select logistics companies across Uzbekistan.",
+    "subtitle": "We never publish fabricated reviews or non-existent client logos. The product is in active development. We are looking for companies for a private pilot.",
     "tag": "Early access partners: coming soon",
-    "pilotInvitation": "If you operate a fleet of 5+ commercial vehicles in Uzbekistan, join the waitlist to qualify for our private pilot."
+    "pilotInvitation": "If your fleet has 5+ trucks, join the waitlist to participate in our private pilot.",
+    "partnerSlot": "Partner #{slot}"
   },
   "faq": {
     "badge": "Frequently Asked Questions",
@@ -164,7 +218,9 @@
     "terms": "Terms of Service",
     "contactTitle": "Contact",
     "rights": "All rights reserved.",
-    "conceptDisclaimer": "Notice: Product metrics, interfaces, and illustrations displayed on this site are illustrative concepts."
+    "conceptDisclaimer": "Notice: Product metrics, interfaces, and illustrations displayed on this site are illustrative concepts.",
+    "socialTelegram": "Telegram",
+    "socialLinkedin": "LinkedIn"
   },
   "waitlistForm": {
     "title": "Sign Up for Early Access",
@@ -202,7 +258,8 @@
     "duplicateMessage": "This phone number is already registered on our priority waitlist. We will keep you updated on progress.",
     "errorGeneral": "An error occurred while submitting. Please check your entries and try again.",
     "rateLimitError": "Too many requests. Please wait 10 minutes before trying again.",
-    "botDetected": "Security challenge failed. Please refresh the page."
+    "botDetected": "Security challenge failed. Please refresh the page.",
+    "unavailable": "Registration is temporarily unavailable"
   },
   "validation": {
     "nameTooShort": "Name must be at least 2 characters long",
@@ -338,7 +395,14 @@
       "nameRequired": "Please enter your full name.",
       "phoneRequired": "Please enter your phone number.",
       "emailAlreadyExists": "A user with this email address already exists.",
-      "phoneAlreadyExists": "A user with this phone number already exists."
+      "phoneAlreadyExists": "A user with this phone number already exists.",
+      "inviteCodeLabel": "Company invite code",
+      "inviteCodeHint": "Enter the one-time invite code provided by your company (required).",
+      "inviteCodePlaceholder": "e.g. ABCD-2K7M",
+      "inviteCodeRequiredError": "An invite code is required for drivers and dispatchers.",
+      "inviteCodeFormatError": "Invalid invite code format (e.g. ABCD-2K7M).",
+      "temporaryPasswordHint": "Use a temporary password, not one you use elsewhere.",
+      "emailPlaceholder": "email@example.com"
     },
     "verifyEmail": {
       "pageTitle": "Verify email",
@@ -862,5 +926,9 @@
     "close": "Close",
     "cameraError": "Could not access camera. Please allow camera permissions or upload an image from gallery.",
     "avatarSavedSuccess": "Avatar updated successfully!"
+  },
+  "demoBanner": {
+    "demoNotice": "Demo version: data is stored only in this browser and is not secure. Do not use real passwords or sensitive data.",
+    "dismiss": "Dismiss"
   }
 }

@@ -58,20 +58,20 @@ export const siteConfig: SiteConfig = {
     ru: "Откажитесь от хаоса звонков и мессенджеров: единая диспетчеризация, GPS-трекинг, фотофиксация доставки через Telegram и попутные грузы для автопарков от 5 до 30 машин.",
     en: "Eliminate the chaos of phone calls and chat groups. Dispatching, live GPS tracking, Telegram proof of delivery, and backhaul matching for fleets with 5 to 30 trucks.",
   },
-  domain: "logistika.uz",
-  url: "https://logistika.uz",
+  domain: "transflow.uz",
+  url: "https://transflow.uz",
   ogImage: "/og-image.png",
   contact: {
-    email: "contact@logistika.uz", // PLACEHOLDER: Update with official domain email
-    phone: "+998712000000",
-    phoneDisplay: "+998 (71) 200-00-00", // PLACEHOLDER: Update with official phone
-    telegramSupport: "https://t.me/logistika_support", // PLACEHOLDER
-    address: "Toshkent shahri, O'zbekiston",
+    email: "",
+    phone: "",
+    phoneDisplay: "",
+    telegramSupport: "",
+    address: "",
   },
   socials: {
-    telegramChannel: "https://t.me/logistika_channel", // PLACEHOLDER
-    telegramBot: "https://t.me/logistika_dispatch_bot", // PLACEHOLDER
-    linkedin: "https://linkedin.com/company/logistika-uz", // PLACEHOLDER
+    telegramChannel: "",
+    telegramBot: "",
+    linkedin: "",
   },
   nav: [
     { href: "#problem", key: "problem" },

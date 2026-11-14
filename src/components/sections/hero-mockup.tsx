@@ -4,56 +4,11 @@ import * as React from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { siteConfig } from "@/config/site";
 import { Truck, MapPin, CheckCircle, Clock, ShieldCheck, Radio } from "lucide-react";
+import { MOCK_VEHICLES, MOCK_CORRIDORS, getMockRoute } from "@/data/mock";
 
 export function HeroMockup() {
   const t = useTranslations("hero");
   const locale = useLocale() as "uz" | "ru" | "en";
-
-  const vehicles = [
-    {
-      id: "TRK-01",
-      plate: "01 789 AFA",
-      driver:
-        locale === "uz" ? "Alisher Q." : locale === "ru" ? "Алишер К." : "Alisher K.",
-      model: "Isuzu 5t",
-      route: "Toshkent → Samarqand",
-      status: "moving",
-      statusText:
-        locale === "uz"
-          ? "Yo'lda (72 km/soat)"
-          : locale === "ru"
-            ? "В пути (72 км/ч)"
-            : "In transit (72 km/h)",
-      eta: "14:30",
-    },
-    {
-      id: "TRK-02",
-      plate: "10 342 BBA",
-      driver:
-        locale === "uz" ? "Jamshid B." : locale === "ru" ? "Жамшид Б." : "Jamshid B.",
-      model: "MAN 20t",
-      route: "Toshkent → Andijon",
-      status: "unloading",
-      statusText:
-        locale === "uz" ? "Yuk tushirmoqda" : locale === "ru" ? "Разгрузка" : "Unloading",
-      eta: "Yetib bordi",
-    },
-    {
-      id: "TRK-03",
-      plate: "80 112 CAA",
-      driver: locale === "uz" ? "Farhod M." : locale === "ru" ? "Фарход М." : "Farhod M.",
-      model: "Isuzu 7t",
-      route: "Buxoro → Qarshi",
-      status: "delivered",
-      statusText:
-        locale === "uz"
-          ? "Telegram PoD tasdiqlandi"
-          : locale === "ru"
-            ? "PoD подтвержден в боте"
-            : "PoD verified via Telegram",
-      eta: "11:45",
-    },
-  ];
 
   return (
     <div className="relative mx-auto w-full max-w-5xl rounded-3xl border border-border/80 bg-card/95 p-3 sm:p-5 shadow-2xl">
@@ -80,27 +35,19 @@ export function HeroMockup() {
 
       {/* Main mockup grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 pt-4">
-        {/* Left Column: Live Vehicle List */}
+        {/* Left Column: Concept Vehicle List */}
         <div className="lg:col-span-5 flex flex-col space-y-3">
           <div className="flex items-center justify-between px-1">
             <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-              {locale === "uz"
-                ? "Faol reyslar (3)"
-                : locale === "ru"
-                  ? "Активные рейсы (3)"
-                  : "Active Shipments (3)"}
+              {t("activeTripsCount")}
             </span>
-            <span className="text-[11px] text-emerald-400 font-medium flex items-center gap-1">
-              <span className="h-2 w-2 rounded-full bg-emerald-400 inline-block" />
-              {locale === "uz"
-                ? "Jonli yangilanish"
-                : locale === "ru"
-                  ? "Живое обновление"
-                  : "Live stream"}
+            <span className="text-[11px] text-amber-500/90 font-medium flex items-center gap-1">
+              <span className="h-2 w-2 rounded-full bg-amber-500/80 inline-block" />
+              {t("conceptStream")}
             </span>
           </div>
 
-          {vehicles.map((v) => (
+          {MOCK_VEHICLES.map((v) => (
             <div
               key={v.id}
               className="rounded-2xl border border-border/60 bg-background/70 p-3.5 transition-all hover:border-primary/50 hover:bg-background/90"
@@ -117,7 +64,7 @@ export function HeroMockup() {
                         ({v.model})
                       </span>
                     </h4>
-                    <p className="text-xs text-muted-foreground">{v.driver}</p>
+                    <p className="text-xs text-muted-foreground">{v.driverShortName[locale] || v.driverShortName.uz}</p>
                   </div>
                 </div>
 
@@ -130,18 +77,18 @@ export function HeroMockup() {
                         : "bg-primary/10 text-primary border-primary/30"
                   }`}
                 >
-                  {v.statusText}
+                  {v.statusText[locale] || v.statusText.uz}
                 </span>
               </div>
 
               <div className="mt-2.5 flex items-center justify-between border-t border-border/40 pt-2 text-[11px] text-muted-foreground">
                 <span className="flex items-center gap-1">
                   <MapPin className="h-3 w-3 text-primary" aria-hidden="true" />
-                  {v.route}
+                  {getMockRoute(v, locale)}
                 </span>
                 <span className="flex items-center gap-1 font-mono">
                   <Clock className="h-3 w-3" aria-hidden="true" />
-                  ETA: {v.eta}
+                  ETA: {v.eta[locale] || v.eta.uz}
                 </span>
               </div>
             </div>
@@ -195,18 +142,14 @@ export function HeroMockup() {
           <div className="relative z-10 flex items-center justify-between">
             <div className="rounded-xl bg-card/95 border border-border/80 px-3 py-1.5 shadow-md">
               <span className="text-[11px] font-semibold text-foreground flex items-center gap-1.5">
-                <span className="h-2 w-2 rounded-full bg-emerald-400 inline-block" />
-                {locale === "uz"
-                  ? "GPS Serveri: Aloqa barqaror"
-                  : locale === "ru"
-                    ? "GPS-сервер: Связь стабильна"
-                    : "GPS Gateway: Online"}
+                <span className="h-2 w-2 rounded-full bg-amber-500/80 inline-block" />
+                {t("mockRouteStatus")}
               </span>
             </div>
 
             <div className="rounded-xl bg-card/95 border border-border/80 px-3 py-1.5 shadow-md text-right">
               <span className="text-[11px] font-mono font-bold text-primary">
-                M39 Trassasi (Jizzax hududi)
+                {MOCK_CORRIDORS.m39_jizzakh[locale] || MOCK_CORRIDORS.m39_jizzakh.uz}
               </span>
             </div>
           </div>
@@ -215,28 +158,20 @@ export function HeroMockup() {
           <div className="relative z-10 mt-auto rounded-xl border border-border/70 bg-card/95 p-3 shadow-lg">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-500/15 text-emerald-400">
+                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/15 text-primary">
                   <ShieldCheck className="h-4 w-4" aria-hidden="true" />
                 </div>
                 <div>
                   <p className="text-xs font-semibold text-foreground">
-                    {locale === "uz"
-                      ? "Yuk xati #UZ-8492 topshirildi"
-                      : locale === "ru"
-                        ? "Накладная #UZ-8492 сдана"
-                        : "Waybill #UZ-8492 Delivered"}
+                    {t("waybillDeliveredTitle")}
                   </p>
                   <p className="text-[10px] text-muted-foreground">
-                    {locale === "uz"
-                      ? "Haydovchi Telegram-bot orqali fotosurat yukladi"
-                      : locale === "ru"
-                        ? "Водитель загрузил фото через Telegram-бот"
-                        : "Driver uploaded signed photo via Telegram bot"}
+                    {t("waybillDeliveredDesc")}
                   </p>
                 </div>
               </div>
-              <span className="text-[10px] font-mono text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded-md">
-                100% PoD
+              <span className="text-[10px] font-mono text-primary font-bold bg-primary/10 px-2 py-0.5 rounded-md">
+                {t("podConceptBadge")}
               </span>
             </div>
           </div>
