@@ -31,6 +31,7 @@ import {
   type UserActivity,
 } from "@/lib/storage-auth";
 import { cn } from "@/lib/utils";
+import { DemoNoticeAlert } from "@/components/common/demo-notice-alert";
 
 export function CabinetView() {
   const t = useTranslations("Cabinet");
@@ -183,6 +184,10 @@ export function CabinetView() {
           </div>
         </div>
       </header>
+
+      <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-4">
+        <DemoNoticeAlert />
+      </div>
 
       {/* Main Cabinet Content */}
       <main className="container mx-auto max-w-7xl flex-1 px-4 sm:px-6 lg:px-8 py-8 space-y-8">

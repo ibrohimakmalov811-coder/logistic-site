@@ -2,23 +2,34 @@
 
 import * as React from "react";
 import { useLocale } from "next-intl";
-import { AlertTriangle, Database, RefreshCw, UserCheck, Users, Zap } from "lucide-react";
+import { AlertTriangle, Database, RefreshCw, UserCheck, Users, X, Zap } from "lucide-react";
 import { useTransFlowAuth } from "@/lib/data/client-auth-context";
 import { generateStressOrders, seedDemoData, syncChannel } from "@/lib/data";
 import { useRouter } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
 
 export function DemoBanner() {
-  const locale = useLocale();
+  const t = useTranslations("demoBanner");
   const router = useRouter();
   const { currentUser, currentCompany, switchDemoUser, refresh } = useTransFlowAuth();
   const [isWorking, setIsWorking] = React.useState(false);
   const [message, setMessage] = React.useState<string | null>(null);
+  const [noticeDismissed, setNoticeDismissed] = React.useState(false);
 
-  const bannerText = {
-    uz: "Demo rejimi: Ma'lumotlar faqat ushbu brauzerda saqlanadi. Haqiqiy shaxsiy ma'lumotlarni kiritmang.",
-    ru: "Демо режим: Данные сохраняются только в этом браузере. Не вводите реальные данные.",
-    en: "Demo mode: Data is stored only in this browser. Do not enter real personal data.",
-  }[locale as "uz" | "ru" | "en"] || "Demo mode: Local browser storage only.";
+  React.useEffect(() => {
+    try {
+      if (window.localStorage.getItem("transflow_demo_notice_dismissed") === "1") {
+        setNoticeDismissed(true);
+      }
+    } catch {}
+  }, []);
+
+  const handleDismissNotice = () => {
+    setNoticeDismissed(true);
+    try {
+      window.localStorage.setItem("transflow_demo_notice_dismissed", "1");
+    } catch {}
+  };
 
   const handleSwitch = async (role: "company_owner" | "dispatcher" | "driver") => {
     setIsWorking(true);
@@ -73,15 +84,33 @@ export function DemoBanner() {
     >
       <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
         {/* Left Notice */}
-        <div className="flex items-center gap-1.5 font-medium">
-          <AlertTriangle className="h-3.5 w-3.5 text-amber-600 dark:text-amber-400 shrink-0" />
-          <span>{bannerText}</span>
-          {message && (
-            <span className="ml-2 font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full">
-              {message}
-            </span>
-          )}
-        </div>
+        {!noticeDismissed ? (
+          <div className="flex items-center gap-1.5 font-medium">
+            <AlertTriangle className="h-3.5 w-3.5 text-amber-600 dark:text-amber-400 shrink-0" />
+            <span>{t("demoNotice")}</span>
+            <button
+              type="button"
+              onClick={handleDismissNotice}
+              aria-label={t("dismiss")}
+              className="ml-1 p-0.5 text-amber-700 hover:text-amber-950 dark:text-amber-300 dark:hover:text-amber-50 rounded"
+            >
+              <X className="h-3 w-3" />
+            </button>
+            {message && (
+              <span className="ml-2 font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full">
+                {message}
+              </span>
+            )}
+          </div>
+        ) : (
+          <div className="flex items-center gap-1.5 font-medium">
+            {message && (
+              <span className="font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full">
+                {message}
+              </span>
+            )}
+          </div>
+        )}
 
         {/* Right Demo Controls */}
         <div className="flex flex-wrap items-center gap-1.5">

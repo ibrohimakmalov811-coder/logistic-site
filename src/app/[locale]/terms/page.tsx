@@ -14,7 +14,7 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "terms" });
   return {
-    title: `${t("title")} | ${siteConfig.name}`,
+    title: t("title"),
     description: t("metaDescription"),
   };
 }
@@ -90,7 +90,11 @@ export default async function TermsPage({ params }: TermsPageProps) {
               <h2 className="text-lg font-bold text-foreground mb-2">
                 {t("contactTitle")}
               </h2>
-              <p>{t("contactText")}</p>
+              <p>
+                {t("contactText", {
+                  contact: siteConfig.contact.email || t("contactPending"),
+                })}
+              </p>
             </div>
           </div>
         </div>

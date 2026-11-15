@@ -13,8 +13,6 @@ export interface UserEntity {
   fullName: string;
   phone: string;
   email: string;
-  citizenship: string;
-  residenceCountry: string;
   language: AppLocale;
   avatar: string | null;
   createdAt: string;

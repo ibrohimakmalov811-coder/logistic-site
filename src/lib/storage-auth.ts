@@ -21,8 +21,6 @@ export interface LocalUser {
   phone: string;
   email: string;
   role: UserRole;
-  citizenship?: string;
-  residenceCountry?: string;
   password: string;
   avatar: string | null;
   createdAt: string;
@@ -66,7 +64,14 @@ export function getLocalUsers(): LocalUser[] {
     const raw = window.localStorage.getItem(STORAGE_KEY_USERS);
     if (!raw) return [];
     const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed : [];
+    if (!Array.isArray(parsed)) return [];
+    return parsed.map((u: any) => {
+      if (u && typeof u === "object") {
+        const { citizenship, residenceCountry, ...rest } = u;
+        return rest as LocalUser;
+      }
+      return u as LocalUser;
+    });
   } catch (err) {
     console.error("[Storage] Failed to parse local users", err);
     return [];
@@ -119,8 +124,6 @@ export function registerUser(data: {
   phone: string;
   email: string;
   role: UserRole;
-  citizenship?: string;
-  residenceCountry?: string;
   password: string;
 }): { success: boolean; error?: string; user?: LocalUser } {
   if (!isClient()) {
@@ -189,8 +192,6 @@ export function registerUser(data: {
     phone: normPhone,
     email: normEmail,
     role: data.role,
-    citizenship: (data.citizenship || "").trim() || "O'zbekiston",
-    residenceCountry: (data.residenceCountry || "").trim() || "O'zbekiston",
     password: data.password,
     avatar: null,
     createdAt: now,

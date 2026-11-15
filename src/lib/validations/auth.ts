@@ -49,8 +49,6 @@ export const signupSchema = z
       .min(7, { message: "authValidation.phoneRequired" })
       .default(""),
     email: emailSchema,
-    citizenship: z.string().trim().min(2).default("O'zbekiston"),
-    residenceCountry: z.string().trim().min(2).default("O'zbekiston"),
     password: passwordSchema,
     confirmPassword: z.string().min(1, { message: "authValidation.confirmRequired" }),
     preferredLanguage: z.enum(["uz", "ru", "en"]).default("uz"),

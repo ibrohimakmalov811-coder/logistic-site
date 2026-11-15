@@ -26,6 +26,7 @@ export interface IUserRepository {
     salt: string
   ): Promise<UserEntity>;
   update(id: string, updates: Partial<UserEntity>): Promise<UserEntity>;
+  delete(id: string): Promise<void>;
   getCredentials(userId: string): Promise<UserCredentialsEntity | null>;
   createSession(userId: string, role: UserRole): Promise<UserSessionEntity>;
   getSession(sessionId: string): Promise<UserSessionEntity | null>;
@@ -65,6 +66,10 @@ export interface IInviteRepository {
   ): Promise<{ invite: InviteEntity; rawCode: string }>;
   listByCompany(companyId: string): Promise<InviteEntity[]>;
   revokeInvite(inviteId: string, companyId: string): Promise<void>;
+  validateInviteCode(
+    rawCode: string,
+    userRole: UserRole
+  ): Promise<{ valid: boolean; error?: string }>;
   verifyAndRedeemInvite(
     rawCode: string,
     userId: string,

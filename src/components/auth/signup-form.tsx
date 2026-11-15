@@ -6,11 +6,9 @@ import {
   AlertCircle,
   Building2,
   ClipboardList,
-  Globe,
   KeyRound,
   Lock,
   Mail,
-  MapPin,
   Phone,
   Truck,
   User,
@@ -45,8 +43,6 @@ export function SignupForm({ initialRole }: SignupFormProps) {
   const [phone, setPhone] = React.useState("+998 ");
   const [email, setEmail] = React.useState("");
   const [inviteCode, setInviteCode] = React.useState("");
-  const [citizenship, setCitizenship] = React.useState("O'zbekiston");
-  const [residenceCountry, setResidenceCountry] = React.useState("O'zbekiston");
   const [password, setPassword] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
   const [acceptLegal, setAcceptLegal] = React.useState(false);
@@ -100,6 +96,24 @@ export function SignupForm({ initialRole }: SignupFormProps) {
       return;
     }
 
+    if (role === "driver" || role === "dispatcher") {
+      const trimmedCode = inviteCode.trim();
+      if (!trimmedCode) {
+        setErrorMessage(t("inviteCodeRequiredError"));
+        return;
+      }
+      const inviteRegex = /^[A-Z0-9]{4}-?[A-Z0-9]{4}$/i;
+      if (!inviteRegex.test(trimmedCode)) {
+        setErrorMessage(t("inviteCodeFormatError"));
+        return;
+      }
+      const check = await inviteRepo.validateInviteCode(trimmedCode, role);
+      if (!check.valid) {
+        setErrorMessage(check.error || t("inviteCodeRequiredError"));
+        return;
+      }
+    }
+
     setSubmitting(true);
     try {
       const { passwordHash, salt } = await hashPassword(password);
@@ -113,8 +127,6 @@ export function SignupForm({ initialRole }: SignupFormProps) {
             fullName: fullName.trim(),
             phone: cleanPhone,
             email: cleanEmail,
-            citizenship: citizenship.trim() || "O'zbekiston",
-            residenceCountry: residenceCountry.trim() || "O'zbekiston",
             language: "uz",
             avatar: null,
           },
@@ -127,10 +139,11 @@ export function SignupForm({ initialRole }: SignupFormProps) {
       }
 
       // If invite code provided, redeem it
-      if (inviteCode.trim() && (role === "driver" || role === "dispatcher")) {
+      if (role === "driver" || role === "dispatcher") {
         const redeemRes = await inviteRepo.verifyAndRedeemInvite(inviteCode.trim(), createdUser.id, role);
         if (!redeemRes.success) {
-          setErrorMessage(redeemRes.error || "Taklif kodi noto'g'ri.");
+          await userRepo.delete(createdUser.id);
+          setErrorMessage(redeemRes.error || t("inviteCodeRequiredError"));
           return;
         }
       } else if (role === "company_owner") {
@@ -143,8 +156,6 @@ export function SignupForm({ initialRole }: SignupFormProps) {
         phone,
         email,
         role,
-        citizenship,
-        residenceCountry,
         password,
       });
 
@@ -204,28 +215,29 @@ export function SignupForm({ initialRole }: SignupFormProps) {
         </div>
       </div>
 
-      {/* Taklif kodi (Haydovchi yoki dispetcher uchun) */}
+      {/* Taklif kodi (Haydovchi yoki dispetcher uchun majburiy) */}
       {(role === "driver" || role === "dispatcher") && (
         <div className="space-y-1.5 rounded-xl border border-primary/20 bg-primary/5 p-3">
           <label
             htmlFor="signup-invite"
             className="block text-xs font-semibold uppercase tracking-wider text-primary"
           >
-            Kompaniya taklif kodi (Invite code)
+            {t("inviteCodeLabel")} *
           </label>
           <div className="relative">
             <KeyRound className="pointer-events-none absolute left-3.5 top-3.5 h-4 w-4 text-muted-foreground" />
             <Input
               id="signup-invite"
               type="text"
-              placeholder="Masalan: ABCD-2K7M"
+              placeholder={t("inviteCodePlaceholder")}
               value={inviteCode}
               onChange={(e) => setInviteCode(e.target.value.toUpperCase())}
               className="pl-10 font-mono text-sm tracking-wider"
+              required
             />
           </div>
           <p className="text-[11px] text-muted-foreground">
-            Kompaniyangiz taqdim etgan bir martalik kodni kiriting (ixtiyoriy).
+            {t("inviteCodeHint")}
           </p>
         </div>
       )}
@@ -297,52 +309,7 @@ export function SignupForm({ initialRole }: SignupFormProps) {
         </div>
       </div>
 
-      {/* 5. Fuqaroligi (Qaysi davlatlik) va Yashash davlati (Qaysi davlatda yashaydi) */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        <div className="space-y-1.5">
-          <label
-            htmlFor="signup-citizenship"
-            className="block text-sm font-medium text-foreground"
-          >
-            {t("citizenshipLabel")}
-          </label>
-          <div className="relative">
-            <Globe className="pointer-events-none absolute left-3.5 top-3.5 h-4 w-4 text-muted-foreground" />
-            <Input
-              id="signup-citizenship"
-              type="text"
-              placeholder={t("citizenshipPlaceholder")}
-              value={citizenship}
-              onChange={(e) => setCitizenship(e.target.value)}
-              className="pl-10"
-              required
-            />
-          </div>
-        </div>
-
-        <div className="space-y-1.5">
-          <label
-            htmlFor="signup-residence"
-            className="block text-sm font-medium text-foreground"
-          >
-            {t("residenceCountryLabel")}
-          </label>
-          <div className="relative">
-            <MapPin className="pointer-events-none absolute left-3.5 top-3.5 h-4 w-4 text-muted-foreground" />
-            <Input
-              id="signup-residence"
-              type="text"
-              placeholder={t("residenceCountryPlaceholder")}
-              value={residenceCountry}
-              onChange={(e) => setResidenceCountry(e.target.value)}
-              className="pl-10"
-              required
-            />
-          </div>
-        </div>
-      </div>
-
-      {/* 6. Parol */}
+      {/* 5. Parol */}
       <div className="space-y-1.5">
         <label
           htmlFor="signup-password"
@@ -364,6 +331,9 @@ export function SignupForm({ initialRole }: SignupFormProps) {
           />
         </div>
         <p className="text-xs text-muted-foreground">{t("passwordRuleHint")}</p>
+        <p className="text-xs text-amber-600 dark:text-amber-400 font-medium">
+          {t("temporaryPasswordHint")}
+        </p>
       </div>
 
       {/* 7. Parolni tasdiqlash */}

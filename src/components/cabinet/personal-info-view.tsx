@@ -8,11 +8,9 @@ import {
   Calendar,
   Camera,
   CheckCircle2,
-  Globe,
   Image as ImageIcon,
   LogOut,
   Mail,
-  MapPin,
   Phone,
   RefreshCw,
   Shield,
@@ -396,28 +394,6 @@ export function PersonalInfoView() {
                   {roleTitle}
                 </span>
               </div>
-            </div>
-
-            {/* Citizenship */}
-            <div className="rounded-xl border border-border/60 bg-secondary/20 p-4 space-y-1">
-              <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider flex items-center gap-1.5">
-                <Globe className="h-3.5 w-3.5 text-primary" />
-                {t("citizenship")}
-              </span>
-              <p className="text-base font-bold text-foreground">
-                {user.citizenship || "—"}
-              </p>
-            </div>
-
-            {/* Residence Country */}
-            <div className="rounded-xl border border-border/60 bg-secondary/20 p-4 space-y-1">
-              <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider flex items-center gap-1.5">
-                <MapPin className="h-3.5 w-3.5 text-primary" />
-                {t("residenceCountry")}
-              </span>
-              <p className="text-base font-bold text-foreground">
-                {user.residenceCountry || "—"}
-              </p>
             </div>
 
             {/* Registration Date */}

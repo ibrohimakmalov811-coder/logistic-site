@@ -14,7 +14,7 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "privacy" });
   return {
-    title: `${t("title")} | ${siteConfig.name}`,
+    title: t("title"),
     description: t("metaDescription"),
   };
 }
@@ -104,7 +104,11 @@ export default async function PrivacyPage({ params }: PrivacyPageProps) {
               <h2 className="text-lg font-bold text-foreground mb-2">
                 {t("rightsTitle")}
               </h2>
-              <p>{t("rightsText")}</p>
+              <p>
+                {t("rightsText", {
+                  contact: siteConfig.contact.email || t("contactPending"),
+                })}
+              </p>
             </div>
           </div>
         </div>

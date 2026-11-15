@@ -26,8 +26,6 @@ export const UserSchema = z.object({
   fullName: z.string().trim().min(2).max(100),
   phone: z.string().trim().regex(/^\+998\d{9}$/, "Invalid phone format (+998XXXXXXXXX)"),
   email: z.string().trim().email().toLowerCase(),
-  citizenship: z.string().trim().min(2),
-  residenceCountry: z.string().trim().min(2),
   language: AppLocaleSchema,
   avatar: z.string().nullable(),
   createdAt: z.string().datetime(),
@@ -164,8 +162,6 @@ export const RegisterInputSchema = z.object({
   phone: z.string().trim().regex(/^\+998\d{9}$/, "Phone must match +998XXXXXXXXX"),
   email: z.string().trim().email("Invalid email").toLowerCase(),
   password: z.string().min(6, "Password must be at least 6 characters"),
-  citizenship: z.string().trim().min(2, "Citizenship is required").default("O'zbekiston"),
-  residenceCountry: z.string().trim().min(2, "Residence country is required").default("O'zbekiston"),
   language: AppLocaleSchema.default("uz"),
   inviteCode: z.string().trim().optional(),
 });

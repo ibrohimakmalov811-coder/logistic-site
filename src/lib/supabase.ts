@@ -33,44 +33,43 @@ export async function insertWaitlistSubmission(
   const supabase = getSupabaseClient();
 
   if (!supabase) {
-    if (env.NODE_ENV === "production") {
-      console.error(
-        "[SECURITY CRITICAL] Database credentials are not configured in production!"
+    const allowDevFallback = process.env.ALLOW_DEV_WAITLIST_FALLBACK === "true";
+    if (process.env.NODE_ENV === "development" && allowDevFallback) {
+      // DEVELOPMENT FALLBACK ONLY WHEN EXPLICITLY ENABLED
+      console.warn(
+        `[DEV FALLBACK] Supabase not connected. Storing waitlist entry in local memory for phone: ${data.phone}`
       );
-      return {
-        success: false,
-        error: "System configuration error. Please contact administrator.",
+
+      if (devWaitlistStore.has(data.phone)) {
+        return {
+          success: false,
+          isDuplicate: true,
+          error: "Bu telefon raqami allaqachon ro'yxatdan o'tgan.",
+        };
+      }
+
+      const record: WaitlistRecord = {
+        id: `dev-${Date.now()}`,
+        fullName: data.fullName,
+        phone: data.phone,
+        companyName: data.companyName,
+        role: data.role,
+        fleetSize: data.fleetSize,
+        preferredLanguage: data.preferredLanguage,
+        consent: data.consent,
+        createdAt: new Date().toISOString(),
+        ipAddressHash: ipHash,
       };
+
+      devWaitlistStore.set(data.phone, record);
+      return { success: true };
     }
 
-    // DEVELOPMENT FALLBACK ONLY
-    console.warn(
-      `[DEV FALLBACK] Supabase not connected. Storing waitlist entry in local memory for phone: ${data.phone}`
-    );
-
-    if (devWaitlistStore.has(data.phone)) {
-      return {
-        success: false,
-        isDuplicate: true,
-        error: "Bu telefon raqami allaqachon ro'yxatdan o'tgan.",
-      };
-    }
-
-    const record: WaitlistRecord = {
-      id: `dev-${Date.now()}`,
-      fullName: data.fullName,
-      phone: data.phone,
-      companyName: data.companyName,
-      role: data.role,
-      fleetSize: data.fleetSize,
-      preferredLanguage: data.preferredLanguage,
-      consent: data.consent,
-      createdAt: new Date().toISOString(),
-      ipAddressHash: ipHash,
+    console.warn("[Waitlist] Database connection is not configured or unavailable.");
+    return {
+      success: false,
+      error: "database_unavailable",
     };
-
-    devWaitlistStore.set(data.phone, record);
-    return { success: true };
   }
 
   try {

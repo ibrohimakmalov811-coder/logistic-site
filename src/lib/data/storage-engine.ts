@@ -29,6 +29,14 @@ function isClient(): boolean {
   return typeof window !== "undefined" && typeof window.localStorage !== "undefined";
 }
 
+function sanitizeUser(u: any): any {
+  if (u && typeof u === "object") {
+    const { citizenship, residenceCountry, ...rest } = u;
+    return rest;
+  }
+  return u;
+}
+
 /**
  * Loads the current storage snapshot.
  * Recovers automatically if corrupted JSON is found.
@@ -49,11 +57,11 @@ export function loadSnapshot(): StorageSnapshot {
     const parsed = JSON.parse(raw);
     if (!parsed || typeof parsed !== "object" || parsed.version !== STORAGE_VERSION) {
       console.warn("TransFlow storage version mismatch or invalid shape. Upgrading snapshot...");
-      // Migration hook: ensure all array fields exist
+      // Migration hook: ensure all array fields exist and strip sensitive/deprecated fields
       const migrated: StorageSnapshot = {
         version: STORAGE_VERSION,
         updatedAt: new Date().toISOString(),
-        users: Array.isArray(parsed.users) ? parsed.users : [],
+        users: Array.isArray(parsed.users) ? parsed.users.map(sanitizeUser) : [],
         credentials: Array.isArray(parsed.credentials) ? parsed.credentials : [],
         sessions: Array.isArray(parsed.sessions) ? parsed.sessions : [],
         companies: Array.isArray(parsed.companies) ? parsed.companies : [],
@@ -75,7 +83,7 @@ export function loadSnapshot(): StorageSnapshot {
     const validated: StorageSnapshot = {
       version: STORAGE_VERSION,
       updatedAt: parsed.updatedAt || new Date().toISOString(),
-      users: Array.isArray(parsed.users) ? parsed.users : [],
+      users: Array.isArray(parsed.users) ? parsed.users.map(sanitizeUser) : [],
       credentials: Array.isArray(parsed.credentials) ? parsed.credentials : [],
       sessions: Array.isArray(parsed.sessions) ? parsed.sessions : [],
       companies: Array.isArray(parsed.companies) ? parsed.companies : [],

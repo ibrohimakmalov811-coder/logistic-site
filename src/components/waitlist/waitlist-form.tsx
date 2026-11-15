@@ -93,6 +93,12 @@ export function WaitlistForm({ id = "waitlist-form", className }: WaitlistFormPr
           isDuplicate: false,
           errorMessage: t("botDetected"),
         });
+      } else if (result.error === "database_unavailable") {
+        setSubmissionState({
+          isSuccess: false,
+          isDuplicate: false,
+          errorMessage: t("unavailable"),
+        });
       } else {
         setSubmissionState({
           isSuccess: false,
@@ -201,8 +207,14 @@ export function WaitlistForm({ id = "waitlist-form", className }: WaitlistFormPr
       {!submissionState.isSuccess && (
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5" noValidate>
           {/* Honeypot field (hidden from genuine users, traps spam bots) */}
-          <div className="hidden" aria-hidden="true" tabIndex={-1}>
-            <label htmlFor="hp_company_website">Do not fill this field</label>
+          <div
+            className="absolute -left-[9999px] opacity-0 pointer-events-none -z-50"
+            aria-hidden="true"
+            tabIndex={-1}
+          >
+            <label htmlFor="hp_company_website" className="sr-only">
+              Website
+            </label>
             <input
               id="hp_company_website"
               type="text"

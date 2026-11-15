@@ -116,6 +116,13 @@ export class LocalUserRepository implements IUserRepository {
     return updated;
   }
 
+  async delete(id: string): Promise<void> {
+    const snapshot = loadSnapshot();
+    snapshot.users = snapshot.users.filter((u) => u.id !== id);
+    snapshot.credentials = snapshot.credentials.filter((c) => c.userId !== id);
+    saveSnapshot(snapshot);
+  }
+
   async getCredentials(userId: string): Promise<UserCredentialsEntity | null> {
     const snapshot = loadSnapshot();
     return snapshot.credentials.find((c) => c.userId === userId) || null;
@@ -399,6 +406,35 @@ export class LocalInviteRepository implements IInviteRepository {
     saveSnapshot(snapshot);
 
     syncChannel.broadcast("INVITE_REVOKED", { companyId });
+  }
+
+  async validateInviteCode(
+    rawCode: string,
+    userRole: UserRole
+  ): Promise<{ valid: boolean; error?: string }> {
+    const codeHash = await hashInviteCode(rawCode);
+    const snapshot = loadSnapshot();
+    const invite = snapshot.invites.find((inv) => inv.codeHash === codeHash);
+
+    if (!invite) {
+      return { valid: false, error: "Taklif kodi topilmadi yoki xato kiritildi." };
+    }
+    if (invite.revokedAt) {
+      return { valid: false, error: "Bu taklifnoma bekor qilingan." };
+    }
+    if (invite.usedAt) {
+      return { valid: false, error: "Bu taklif kodi allaqachon ishlatilgan." };
+    }
+    if (new Date(invite.expiresAt).getTime() < Date.now()) {
+      return { valid: false, error: "Taklif kodining amal qilish muddati tugagan." };
+    }
+    if (invite.role !== userRole) {
+      return {
+        valid: false,
+        error: `Bu taklif ${invite.role === "driver" ? "haydovchi" : "dispetcher"} roli uchun mo'ljallangan.`,
+      };
+    }
+    return { valid: true };
   }
 
   async verifyAndRedeemInvite(

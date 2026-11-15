@@ -222,8 +222,6 @@ export async function signupAction(formData: {
   fullName?: string;
   phone?: string;
   email: string;
-  citizenship?: string;
-  residenceCountry?: string;
   password: string;
   confirmPassword: string;
   acceptLegal: boolean;
@@ -239,8 +237,6 @@ export async function signupAction(formData: {
     fullName: formData.fullName || "",
     phone: formData.phone || "",
     email: formData.email,
-    citizenship: formData.citizenship || "O'zbekiston",
-    residenceCountry: formData.residenceCountry || "O'zbekiston",
     password: formData.password,
     confirmPassword: formData.confirmPassword,
     consent: formData.acceptLegal,
@@ -272,8 +268,6 @@ export async function signupAction(formData: {
     role,
     fullName,
     phone,
-    citizenship,
-    residenceCountry,
     preferredLanguage: locale,
   } = parsed.data;
 
@@ -292,8 +286,6 @@ export async function signupAction(formData: {
           preferred_language: locale,
           full_name: fullName,
           phone,
-          citizenship,
-          residence_country: residenceCountry,
         },
       },
     });
@@ -325,7 +317,7 @@ export async function signupAction(formData: {
         actorId: data.user.id,
         action: "auth.signup",
         targetType: "auth",
-        metadata: { role, locale, citizenship, residenceCountry },
+        metadata: { role, locale },
       });
     }
 
@@ -392,7 +384,7 @@ export async function signupAction(formData: {
     actorId: userId,
     action: "auth.signup",
     targetType: "auth",
-    metadata: { role, locale, citizenship, residenceCountry },
+    metadata: { role, locale },
   });
 
   return {

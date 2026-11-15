@@ -82,6 +82,12 @@ export async function submitWaitlistAction(
           error: "duplicate_phone",
         };
       }
+      if (dbResult.error === "database_unavailable") {
+        return {
+          success: false,
+          error: "database_unavailable",
+        };
+      }
       return {
         success: false,
         error: "server_error",

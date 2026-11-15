@@ -1,6 +1,7 @@
 import * as React from "react";
 import { ShieldCheck } from "lucide-react";
 import { siteConfig } from "@/config/site";
+import { DemoNoticeAlert } from "@/components/common/demo-notice-alert";
 
 interface AuthShellProps {
   title: string;
@@ -20,6 +21,8 @@ export function AuthShell({
   return (
     <section className="relative min-h-[calc(100vh-8rem)] flex items-center justify-center py-12 px-4 sm:px-6 overflow-x-clip">
       <div className="w-full max-w-lg">
+        <DemoNoticeAlert className="mb-4" />
+
         {isDevSandbox && devBadgeLabel && (
           <div className="mb-4 rounded-xl border border-amber-500/40 bg-amber-500/10 px-4 py-2.5 text-xs text-amber-700 dark:text-amber-300 flex items-center gap-2">
             <ShieldCheck className="h-4 w-4 shrink-0" />
