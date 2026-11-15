@@ -74,16 +74,12 @@ export function HeroSection() {
             </a>
           </div>
 
-          <div className="mt-5 flex flex-wrap items-center justify-center gap-4 text-xs sm:text-sm text-muted-foreground">
-            <Link href="/signup" className="font-semibold text-primary hover:underline">
-              {t("ctaSignup")}
-            </Link>
-            <span aria-hidden="true">·</span>
+          <div className="mt-5 flex items-center justify-center gap-2 text-xs sm:text-sm text-muted-foreground">
             <Link
               href="/login"
-              className="font-medium text-foreground/85 hover:text-primary hover:underline"
+              className="font-medium text-foreground/80 hover:text-primary hover:underline transition-colors"
             >
-              {t("ctaLogin")}
+              {t("demoCabinet")} →
             </Link>
           </div>
         </div>

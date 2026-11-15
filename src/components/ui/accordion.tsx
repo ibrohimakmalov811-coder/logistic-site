@@ -46,13 +46,18 @@ export function AccordionItem({
         id={contentId}
         role="region"
         aria-labelledby={buttonId}
-        hidden={!isOpen}
         className={cn(
-          "overflow-hidden px-2 pt-2 text-sm sm:text-base text-muted-foreground leading-relaxed transition-all",
-          !isOpen && "hidden"
+          "grid transition-[grid-template-rows,opacity] duration-300 ease-in-out px-2",
+          isOpen
+            ? "grid-rows-[1fr] opacity-100 pt-2"
+            : "grid-rows-[0fr] opacity-0 pointer-events-none"
         )}
       >
-        <p className="pb-2">{answer}</p>
+        <div className="overflow-hidden">
+          <p className="pb-2 text-sm sm:text-base text-muted-foreground leading-relaxed">
+            {answer}
+          </p>
+        </div>
       </div>
     </div>
   );

@@ -15,7 +15,7 @@ export async function generateMetadata({
     namespace: "CompanyPortal.phase2Backhaul",
   });
   return {
-    title: `${t("pageTitle")} | ${siteConfig.name}`,
+    title: t("pageTitle"),
     robots: { index: false, follow: false },
   };
 }

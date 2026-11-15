@@ -22,7 +22,7 @@ export async function generateMetadata({
     namespace: "Auth.forgotPassword",
   });
   return {
-    title: `${t("pageTitle")} | ${siteConfig.name}`,
+    title: t("pageTitle"),
     robots: { index: false, follow: false },
   };
 }

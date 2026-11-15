@@ -1,4 +1,4 @@
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { type Locale } from "@/i18n/routing";
 import { HeroSection } from "@/components/sections/hero-section";
 import { ProblemSection } from "@/components/sections/problem-section";
@@ -20,8 +20,79 @@ export default async function HomePage({ params }: HomePageProps) {
   const { locale } = await params;
   setRequestLocale(locale as Locale);
 
+  const tFaq = await getTranslations({ locale, namespace: "faq" });
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: tFaq("q1"),
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: tFaq("a1"),
+        },
+      },
+      {
+        "@type": "Question",
+        name: tFaq("q2"),
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: tFaq("a2"),
+        },
+      },
+      {
+        "@type": "Question",
+        name: tFaq("q3"),
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: tFaq("a3"),
+        },
+      },
+      {
+        "@type": "Question",
+        name: tFaq("q4"),
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: tFaq("a4"),
+        },
+      },
+      {
+        "@type": "Question",
+        name: tFaq("q5"),
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: tFaq("a5"),
+        },
+      },
+      {
+        "@type": "Question",
+        name: tFaq("q6"),
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: tFaq("a6"),
+        },
+      },
+      {
+        "@type": "Question",
+        name: tFaq("q7"),
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: tFaq("a7"),
+        },
+      },
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(faqJsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
       {/* 2. Hero Section with Mockup and CTAs */}
       <HeroSection />
 

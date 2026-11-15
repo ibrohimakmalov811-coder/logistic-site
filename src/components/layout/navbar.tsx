@@ -281,9 +281,9 @@ export function Navbar() {
                 <span>{t("login")}</span>
               </Link>
 
-              {/* Register Primary CTA */}
-              <Link
-                href="/signup"
+              {/* Waitlist / Early Access Primary CTA */}
+              <a
+                href="#waitlist"
                 className={cn(
                   "group relative inline-flex items-center justify-center gap-1.5 xl:gap-2 rounded-xl px-3 xl:px-5 py-2.5 text-[12.5px] xl:text-sm font-bold whitespace-nowrap transition-all duration-300",
                   "bg-gradient-to-r from-[#2563EB] via-[#3B82F6] to-[#2563EB] hover:from-[#1D4ED8] hover:via-[#2563EB] hover:to-[#3B82F6] text-white",
@@ -297,12 +297,9 @@ export function Navbar() {
                   className="hidden xl:inline-block h-4 w-4 text-blue-100"
                   aria-hidden="true"
                 />
-                <span>{t("register")}</span>
-                <ArrowRight
-                  className="h-3.5 w-3.5 xl:h-4 xl:w-4 transition-transform duration-200 group-hover:translate-x-0.5"
-                  aria-hidden="true"
-                />
-              </Link>
+                <span>{t("cta")}</span>
+                <ArrowRight className="h-3.5 w-3.5 xl:h-4 xl:w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+              </a>
             </>
           )}
         </div>
@@ -486,8 +483,8 @@ export function Navbar() {
                     <span>{t("login")}</span>
                   </Link>
 
-                  <Link
-                    href="/signup"
+                  <a
+                    href="#waitlist"
                     onClick={() => setIsMobileMenuOpen(false)}
                     className={cn(
                       "w-full flex items-center justify-center gap-2 rounded-xl py-3.5 px-4 text-base font-bold text-white transition-all duration-200",
@@ -495,9 +492,9 @@ export function Navbar() {
                     )}
                   >
                     <Sparkles className="h-4 w-4 text-blue-100" aria-hidden="true" />
-                    <span>{t("register")}</span>
+                    <span>{t("cta")}</span>
                     <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                  </Link>
+                  </a>
                 </>
               )}
             </div>

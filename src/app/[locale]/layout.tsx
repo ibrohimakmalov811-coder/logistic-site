@@ -126,13 +126,17 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
         name: siteConfig.name,
         url: siteConfig.url,
         description: siteConfig.description.en,
-        contactPoint: {
-          "@type": "ContactPoint",
-          telephone: siteConfig.contact.phone,
-          contactType: "customer service",
-          areaServed: "UZ",
-          availableLanguage: ["uz", "ru", "en"],
-        },
+        ...(siteConfig.contact.phone
+          ? {
+              contactPoint: {
+                "@type": "ContactPoint",
+                telephone: siteConfig.contact.phone,
+                contactType: "customer service",
+                areaServed: "UZ",
+                availableLanguage: ["uz", "ru", "en"],
+              },
+            }
+          : {}),
       },
       {
         "@type": "WebSite",

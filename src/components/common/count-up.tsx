@@ -17,14 +17,14 @@ export function CountUp({
   prefix = "",
   className,
 }: CountUpProps) {
-  const [count, setCount] = React.useState(0);
+  // Server-render the final value so HTML never shows "0%" without JS
+  const [count, setCount] = React.useState(end);
   const elementRef = React.useRef<HTMLSpanElement>(null);
   const hasAnimated = React.useRef(false);
 
   React.useEffect(() => {
     // Respect prefers-reduced-motion
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setCount(end);
       return;
     }
 
@@ -33,6 +33,7 @@ export function CountUp({
         const [entry] = entries;
         if (entry.isIntersecting && !hasAnimated.current) {
           hasAnimated.current = true;
+          setCount(0);
           let startTime: number | null = null;
 
           const step = (timestamp: number) => {
