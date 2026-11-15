@@ -259,7 +259,8 @@
     "errorGeneral": "Xatolik yuz berdi. Iltimos, ma'lumotlarni tekshirib qayta urinib ko'ring.",
     "rateLimitError": "So'rovlar soni me'yoridan oshdi. Iltimos, 10 daqiqadan keyin qaytadan urinib ko'ring.",
     "botDetected": "Xavfsizlik tekshiruvidan o'tmadi. Sahifani yangilang.",
-    "unavailable": "Ro'yxatga olish vaqtincha mavjud emas"
+    "unavailable": "Ro'yxatga olish vaqtincha mavjud emas",
+    "submitAnotherNumber": "Boshqa raqam kiritish"
   },
   "validation": {
     "nameTooShort": "Ism kamida 2 ta belgidan iborat bo'lishi kerak",

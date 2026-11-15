@@ -259,7 +259,8 @@
     "errorGeneral": "An error occurred while submitting. Please check your entries and try again.",
     "rateLimitError": "Too many requests. Please wait 10 minutes before trying again.",
     "botDetected": "Security challenge failed. Please refresh the page.",
-    "unavailable": "Registration is temporarily unavailable"
+    "unavailable": "Registration is temporarily unavailable",
+    "submitAnotherNumber": "Submit another number"
   },
   "validation": {
     "nameTooShort": "Name must be at least 2 characters long",

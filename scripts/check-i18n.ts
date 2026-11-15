@@ -105,14 +105,52 @@ function main() {
     }
   }
 
+  // Component scan for hardcoded text
+  const componentErrors = checkHardcodedStringsInComponents(path.join(process.cwd(), "src"));
+  errors += componentErrors;
+
   if (errors > 0) {
     console.error(`[i18n] Failed with ${errors} error(s).`);
     process.exit(1);
   }
 
   console.log(
-    `[i18n] OK: ${baseKeys.length} keys verified across uz, ru, en.`
+    `[i18n] OK: ${baseKeys.length} keys verified across uz, ru, en. Components scanned cleanly.`
   );
+}
+
+function checkHardcodedStringsInComponents(srcDir: string): number {
+  let errCount = 0;
+  const ALLOWED_FILES = new Set([
+    "language-switcher.tsx",
+    "driver-profile-view.tsx",
+    "problem-section.tsx",
+  ]);
+
+  function walk(dir: string) {
+    if (!fs.existsSync(dir)) return;
+    const entries = fs.readdirSync(dir, { withFileTypes: true });
+    for (const entry of entries) {
+      const fullPath = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        walk(fullPath);
+      } else if (entry.isFile() && entry.name.endsWith(".tsx")) {
+        if (ALLOWED_FILES.has(entry.name)) continue;
+        const content = fs.readFileSync(fullPath, "utf8");
+        // Look for hardcoded Cyrillic words in component JSX (indicates untranslated Russian copy)
+        const cyrillicMatch = content.match(/[\u0400-\u04FF]{4,}/g);
+        if (cyrillicMatch) {
+          console.error(
+            `[i18n] Hardcoded Cyrillic text in component ${path.relative(process.cwd(), fullPath)}: ${cyrillicMatch.slice(0, 3).join(", ")}`
+          );
+          errCount += 1;
+        }
+      }
+    }
+  }
+
+  walk(path.join(srcDir, "components"));
+  return errCount;
 }
 
 main();

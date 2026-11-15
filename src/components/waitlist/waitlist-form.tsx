@@ -156,11 +156,7 @@ export function WaitlistForm({ id = "waitlist-form", className }: WaitlistFormPr
               size="sm"
               onClick={() => setSubmissionState({ isSuccess: false, isDuplicate: false })}
             >
-              {locale === "uz"
-                ? "Boshqa raqam kiritish"
-                : locale === "ru"
-                  ? "Зарегистрировать другой номер"
-                  : "Submit another number"}
+              {t("submitAnotherNumber")}
             </Button>
           </div>
         </div>
