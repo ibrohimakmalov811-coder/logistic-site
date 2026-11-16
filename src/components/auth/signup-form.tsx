@@ -40,6 +40,7 @@ export function SignupForm({ initialRole }: SignupFormProps) {
 
   const [role, setRole] = React.useState<UserRole>(initialRole ?? "driver");
   const [fullName, setFullName] = React.useState("");
+  const [companyName, setCompanyName] = React.useState("");
   const [phone, setPhone] = React.useState("+998 ");
   const [email, setEmail] = React.useState("");
   const [inviteCode, setInviteCode] = React.useState("");
@@ -72,6 +73,10 @@ export function SignupForm({ initialRole }: SignupFormProps) {
 
     if (fullName.trim().length < 2) {
       setErrorMessage(t("nameRequired"));
+      return;
+    }
+    if (role === "company_owner" && companyName.trim().length < 2) {
+      setErrorMessage(t("companyNameRequired"));
       return;
     }
     const cleanPhone = phone.replace(/[^\d+]/g, "");
@@ -147,7 +152,7 @@ export function SignupForm({ initialRole }: SignupFormProps) {
           return;
         }
       } else if (role === "company_owner") {
-        await companyRepo.create(createdUser.id, `${fullName.trim()} Logistika`, "Toshkent");
+        await companyRepo.create(createdUser.id, companyName.trim(), "Toshkent");
       }
 
       // Keep legacy storage-auth in sync
@@ -214,6 +219,33 @@ export function SignupForm({ initialRole }: SignupFormProps) {
           })}
         </div>
       </div>
+
+      {/* Kompaniya nomi (Kompaniya egasi roli uchun majburiy) */}
+      {role === "company_owner" && (
+        <div className="space-y-1.5 rounded-xl border border-primary/20 bg-primary/5 p-3">
+          <label
+            htmlFor="signup-company-name"
+            className="block text-xs font-semibold uppercase tracking-wider text-primary"
+          >
+            {t("companyNameLabel")} *
+          </label>
+          <div className="relative">
+            <Building2 className="pointer-events-none absolute left-3.5 top-3.5 h-4 w-4 text-muted-foreground" />
+            <Input
+              id="signup-company-name"
+              type="text"
+              placeholder={t("companyNamePlaceholder")}
+              value={companyName}
+              onChange={(e) => setCompanyName(e.target.value)}
+              className="pl-10 text-sm"
+              required
+            />
+          </div>
+          <p className="text-[11px] text-muted-foreground">
+            {t("companyNameHint")}
+          </p>
+        </div>
+      )}
 
       {/* Taklif kodi (Haydovchi yoki dispetcher uchun majburiy) */}
       {(role === "driver" || role === "dispatcher") && (
@@ -331,9 +363,6 @@ export function SignupForm({ initialRole }: SignupFormProps) {
           />
         </div>
         <p className="text-xs text-muted-foreground">{t("passwordRuleHint")}</p>
-        <p className="text-xs text-amber-600 dark:text-amber-400 font-medium">
-          {t("temporaryPasswordHint")}
-        </p>
       </div>
 
       {/* 7. Parolni tasdiqlash */}

@@ -53,6 +53,7 @@ export const CompanySchema = z.object({
   city: z.string().trim().min(2).max(100),
   fleetSize: z.string().optional(),
   cargoTypes: z.array(z.string()).optional(),
+  inviteCode: z.string().optional(),
   createdAt: z.string().datetime(),
 });
 

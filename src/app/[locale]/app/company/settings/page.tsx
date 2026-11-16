@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useTranslations } from "next-intl";
-import { Building2, CheckCircle2, Download, RefreshCw, Save, Shield } from "lucide-react";
+import { Building2, CheckCircle2, Copy, Download, RefreshCw, Save, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useTransFlowAuth } from "@/lib/data/client-auth-context";
@@ -137,6 +137,32 @@ export default function CompanySettingsPage() {
                 <option value="10-25">10-25 ta fura</option>
                 <option value="25+">25+ ta fura</option>
               </select>
+            </div>
+
+            <div className="space-y-1">
+              <label className="font-semibold uppercase tracking-wider text-muted-foreground">
+                {t("inviteCodeLabel")}
+              </label>
+              <div className="flex gap-2">
+                <Input
+                  value={currentCompany?.inviteCode || "TF-8801A"}
+                  readOnly
+                  className="font-mono bg-muted/40 font-bold"
+                />
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="md"
+                  onClick={() => {
+                    navigator.clipboard.writeText(currentCompany?.inviteCode || "");
+                    setMessage("Kompaniya taklif kodi nusxalandi!");
+                    setTimeout(() => setMessage(null), 3000);
+                  }}
+                  title={t("copyCode")}
+                >
+                  <Copy className="h-4 w-4" />
+                </Button>
+              </div>
             </div>
           </div>
         </div>

@@ -5,8 +5,11 @@ import { useTranslations } from "next-intl";
 import {
   AlertTriangle,
   ArrowRight,
+  Check,
   CheckCircle2,
   ClipboardList,
+  Copy,
+  KeyRound,
   Plus,
   Truck,
   Users,
@@ -35,6 +38,7 @@ export default function CompanyOverviewPage() {
   const [vehicles, setVehicles] = React.useState<VehicleEntity[]>([]);
   const [members, setMembers] = React.useState<Array<{ user: UserEntity }>>([]);
   const [isLoading, setIsLoading] = React.useState(true);
+  const [copiedCode, setCopiedCode] = React.useState(false);
 
   const loadData = React.useCallback(async () => {
     if (!currentCompany) return;
@@ -160,6 +164,54 @@ export default function CompanyOverviewPage() {
           </Link>
         </div>
       </div>
+
+      {/* Company Invite Code Banner for Owner & Dispatchers */}
+      {currentCompany?.inviteCode && (
+        <div className="rounded-2xl border border-primary/20 bg-primary/5 p-4 sm:p-5 flex flex-col md:flex-row md:items-center md:justify-between gap-4 shadow-xs">
+          <div className="flex items-start sm:items-center gap-3">
+            <div className="h-10 w-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0 text-primary">
+              <KeyRound className="h-5 w-5" />
+            </div>
+            <div>
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                  {t("companyInviteCodeTitle")}
+                </span>
+                <span className="font-mono text-base font-bold text-primary bg-background px-2.5 py-0.5 rounded-lg border border-primary/30">
+                  {currentCompany.inviteCode}
+                </span>
+              </div>
+              <p className="text-xs text-muted-foreground mt-0.5">
+                {t("companyInviteCodeHint")}
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2 shrink-0">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => {
+                navigator.clipboard.writeText(currentCompany.inviteCode || "");
+                setCopiedCode(true);
+                setTimeout(() => setCopiedCode(false), 2000);
+              }}
+              className="gap-1.5"
+            >
+              {copiedCode ? (
+                <>
+                  <Check className="h-4 w-4 text-emerald-500" />
+                  <span>{t("codeCopied")}</span>
+                </>
+              ) : (
+                <>
+                  <Copy className="h-4 w-4" />
+                  <span>{t("copyCode")}</span>
+                </>
+              )}
+            </Button>
+          </div>
+        </div>
+      )}
 
       {/* KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">

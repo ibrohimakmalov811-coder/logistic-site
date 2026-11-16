@@ -15,7 +15,7 @@
     "badge": "O'zbekiston logistikasi uchun yangi avlod boshqaruvi",
     "titlePrefix": "Qo'ng'iroqlar va tartibsiz chatlar o'rniga —",
     "titleHighlight": "yagona aniq tizim",
-    "subtitle": "Kichik va o'rta avtoparklar hamda mahalliy distribyutorlar uchun Telegram orqali boshqariladigan dispetcherlik, jonli GPS monitoring va topshirish dalili.",
+    "subtitle": "Kichik va o'rta avtoparklar hamda mahalliy distribyutorlar uchun dispetcherlik, rejalashtirilgan GPS monitoring va elektron topshirish dalili (PoD) tizimi.",
     "ctaPrimary": "Erta kirishga yozilish",
     "ctaSecondary": "Qanday ishlashini ko'rish",
     "conceptLabel": "Dizayn konseptsiyasi — ishlab chiqilmoqda",
@@ -54,34 +54,36 @@
   },
   "howItWorks": {
     "badge": "Jarayon",
+    "comingSoonBadge": "Tez orada",
     "title": "Uchta oddiy qadamda to'liq nazorat",
-    "subtitle": "Og'ir va murakkab dasturlarni o'rnatish shart emas. Dispetcher kompyuterda, haydovchi esa Telegram'da ishlaydi.",
+    "subtitle": "Og'ir va murakkab dasturlarni o'rnatish shart emas. Dispetcher kompyuterda boshqaradi, haydovchilar bilan tezkor aloqa yo'lga qo'yiladi.",
     "step1Number": "01",
     "step1Title": "Buyurtmani kiritish",
     "step1Desc": "Dispetcher veb-panelda reys ma'lumotlari, manzil va muddatni kiritadi yoki mijoz arizasini tasdiqlaydi.",
     "step2Number": "02",
-    "step2Title": "Haydovchiga biriktirish va jonli kuzatish",
-    "step2Desc": "Haydovchi shaxsiy Telegram-botida yangi topshiriqni oladi. Dispetcher va mijoz marshrutni real vaqtda xaritada ko'rib turadi.",
+    "step2Title": "Haydovchiga biriktirish va marshrut nazorati",
+    "step2Desc": "Haydovchi buyurtma ma'lumotlarini qabul qiladi. Dispetcher reys bosqichlarini tizim orqali kuzatib boradi (keyingi bosqichda jonli GPS xaritasi rejalashtirilgan).",
     "step3Number": "03",
     "step3Title": "Topshirish dalili va yopilish",
-    "step3Desc": "Mijoz yukni qabul qilgach, haydovchi botga qabul hujjati rasmini yoki mijoz imzosini yuklaydi. Barcha tomonlarga tasdiq yetkaziladi."
+    "step3Desc": "Mijoz yukni qabul qilgach, qabul hujjati va imzo qayd etiladi. Tizim orqali reys yopiladi (Telegram-bot orqali fotosurat yuklash rejalashtirilgan)."
   },
   "features": {
     "badge": "Imkoniyatlar",
+    "comingSoonBadge": "Tez orada",
     "title": "Kichik avtoparklarning real ehtiyojlari uchun yaratilgan",
     "subtitle": "Ortiqcha murakkabliksiz, faqat kundalik ishingizni yengillashtiruvchi vositalar:",
     "f1Title": "Aqlli dispetcherlik",
     "f1Desc": "Barcha faol buyurtmalar, bo'sh va band mashinalar yagona interfeysda. Rangli statuslar va avtomatik bildirishnomalar.",
     "f2Title": "Jonli GPS monitoring",
-    "f2Desc": "Mashinaning harakat tezligi, to'xtash joylari va yetib borish vaqtini (ETA) real vaqtda xaritada kuzating.",
+    "f2Desc": "Mashinaning harakat tezligi, to'xtash joylari va yetib borish vaqtini (ETA) xaritada kuzatish (ishlab chiqilmoqda, keyingi bosqichda ishga tushiriladi).",
     "f3Title": "Telegram orqali topshirish dalili (PoD)",
-    "f3Desc": "Yuk topshirilganligi haqidagi imzo yoki yuk xati (TTN) fotosurati haydovchi boti orqali tizimga tushadi va mijozga yetkaziladi.",
+    "f3Desc": "Yuk topshirilganligi haqidagi imzo yoki yuk xati (TTN) fotosuratini yuklash va mijozga yetkazish (rejalashtirilgan imkoniyat).",
     "f4Title": "Qaytish yuklarini topish (Backhaul)",
     "f4Desc": "Viloyatlarga borib bo'sh qaytayotgan yuk mashinalari uchun tizim ichida mavjud yuklarni biriktirish imkoniyati.",
     "f5Title": "Batafsil tahlil va hisobotlar",
     "f5Desc": "Reys vaqti, kechikishlar sabablari, kilometraj, tannarx va har bir haydovchining ish unumdorligi ko'rsatkichlari.",
     "f6Title": "Telegram-birinchi integratsiya",
-    "f6Desc": "Haydovchilarga maxsus mobil ilova o'rgatish shart emas. Har bir haydovchida bor bo'lgan Telegram orqali to'liq ishlaydi."
+    "f6Desc": "Haydovchilarga o'rganish oson bo'lishi uchun Telegram-bot integratsiyasi rejalashtirilgan."
   },
   "backhaul": {
     "badge": "Samaradorlik",
@@ -400,7 +402,10 @@
       "inviteCodePlaceholder": "Masalan: ABCD-2K7M",
       "inviteCodeRequiredError": "Haydovchi va dispetcherlar uchun taklif kodi kiritilishi shart.",
       "inviteCodeFormatError": "Taklif kodi formati noto'g'ri (Masalan: ABCD-2K7M).",
-      "temporaryPasswordHint": "Boshqa joyda ishlatiladigan parolingizni kiritmang, vaqtinchalik parol qo'llang.",
+      "companyNameLabel": "Kompaniya nomi",
+      "companyNamePlaceholder": "Masalan: Silk Road Logistics",
+      "companyNameHint": "Kompaniyangiz uchun 8 belgili taklif kodi avtomatik yaratiladi.",
+      "companyNameRequired": "Iltimos, kompaniyangiz nomini kiriting.",
       "emailPlaceholder": "email@example.com"
     },
     "verifyEmail": {
@@ -582,7 +587,11 @@
       "colPickup": "Yuklash vaqti",
       "unassigned": "Tayinlanmagan",
       "recentOrdersSubtitle": "So'nggi biriktirilgan va yetkazilayotgan buyurtmalar",
-      "noOrders": "Buyurtmalar mavjud emas"
+      "noOrders": "Buyurtmalar mavjud emas",
+      "companyInviteCodeTitle": "Kompaniya taklif kodi",
+      "companyInviteCodeHint": "Haydovchi va dispetcherlar ro'yxatdan o'tishda ushbu kodni kiritib kompaniyangizga ulanadi.",
+      "copyCode": "Kodni nusxalash",
+      "codeCopied": "Nusxalandi!"
     },
     "orders": {
       "pageTitle": "Buyurtmalar",
@@ -751,6 +760,8 @@
       "cityLabel": "Shahar",
       "legalFormLabel": "Huquqiy shakl",
       "fleetSizeLabel": "Avtopark hajmi",
+      "inviteCodeLabel": "Kompaniya taklif kodi",
+      "copyCode": "Nusxalash",
       "saveCompanyButton": "Saqlash",
       "ownerOnlyNotice": "Kompaniya ma'lumotlarini faqat kompaniya egasi tahrirlashi mumkin.",
       "teamSectionTitle": "Jamoa va dispetcherlar",

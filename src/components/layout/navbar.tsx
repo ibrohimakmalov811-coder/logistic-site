@@ -282,24 +282,45 @@ export function Navbar() {
               </Link>
 
               {/* Waitlist / Early Access Primary CTA */}
-              <a
-                href="#waitlist"
-                className={cn(
-                  "group relative inline-flex items-center justify-center gap-1.5 xl:gap-2 rounded-xl px-3 xl:px-5 py-2.5 text-[12.5px] xl:text-sm font-bold whitespace-nowrap transition-all duration-300",
-                  "bg-gradient-to-r from-[#2563EB] via-[#3B82F6] to-[#2563EB] hover:from-[#1D4ED8] hover:via-[#2563EB] hover:to-[#3B82F6] text-white",
-                  "dark:from-[#3B82F6] dark:via-[#2563EB] dark:to-[#3B82F6] dark:hover:from-[#60A5FA] dark:hover:to-[#3B82F6]",
-                  "shadow-[0_0_20px_rgba(37,99,235,0.32)] dark:shadow-[0_0_24px_rgba(59,130,246,0.38)]",
-                  "hover:shadow-[0_0_30px_rgba(37,99,235,0.52)] dark:hover:shadow-[0_0_32px_rgba(96,165,250,0.55)] hover:-translate-y-0.5 active:scale-[0.98]",
-                  "border border-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3B82F6] focus-visible:ring-offset-2 dark:focus-visible:ring-offset-[#0B1220]"
-                )}
-              >
-                <Sparkles
-                  className="hidden xl:inline-block h-4 w-4 text-blue-100"
-                  aria-hidden="true"
-                />
-                <span>{t("cta")}</span>
-                <ArrowRight className="h-3.5 w-3.5 xl:h-4 xl:w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
-              </a>
+              {isHome ? (
+                <a
+                  href="#waitlist"
+                  className={cn(
+                    "group relative inline-flex items-center justify-center gap-1.5 xl:gap-2 rounded-xl px-3 xl:px-5 py-2.5 text-[12.5px] xl:text-sm font-bold whitespace-nowrap transition-all duration-300",
+                    "bg-gradient-to-r from-[#2563EB] via-[#3B82F6] to-[#2563EB] hover:from-[#1D4ED8] hover:via-[#2563EB] hover:to-[#3B82F6] text-white",
+                    "dark:from-[#3B82F6] dark:via-[#2563EB] dark:to-[#3B82F6] dark:hover:from-[#60A5FA] dark:hover:to-[#3B82F6]",
+                    "shadow-[0_0_20px_rgba(37,99,235,0.32)] dark:shadow-[0_0_24px_rgba(59,130,246,0.38)]",
+                    "hover:shadow-[0_0_30px_rgba(37,99,235,0.52)] dark:hover:shadow-[0_0_32px_rgba(96,165,250,0.55)] hover:-translate-y-0.5 active:scale-[0.98]",
+                    "border border-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3B82F6] focus-visible:ring-offset-2 dark:focus-visible:ring-offset-[#0B1220]"
+                  )}
+                >
+                  <Sparkles
+                    className="hidden xl:inline-block h-4 w-4 text-blue-100"
+                    aria-hidden="true"
+                  />
+                  <span>{t("cta")}</span>
+                  <ArrowRight className="h-3.5 w-3.5 xl:h-4 xl:w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+                </a>
+              ) : (
+                <Link
+                  href={{ pathname: "/", hash: "waitlist" }}
+                  className={cn(
+                    "group relative inline-flex items-center justify-center gap-1.5 xl:gap-2 rounded-xl px-3 xl:px-5 py-2.5 text-[12.5px] xl:text-sm font-bold whitespace-nowrap transition-all duration-300",
+                    "bg-gradient-to-r from-[#2563EB] via-[#3B82F6] to-[#2563EB] hover:from-[#1D4ED8] hover:via-[#2563EB] hover:to-[#3B82F6] text-white",
+                    "dark:from-[#3B82F6] dark:via-[#2563EB] dark:to-[#3B82F6] dark:hover:from-[#60A5FA] dark:hover:to-[#3B82F6]",
+                    "shadow-[0_0_20px_rgba(37,99,235,0.32)] dark:shadow-[0_0_24px_rgba(59,130,246,0.38)]",
+                    "hover:shadow-[0_0_30px_rgba(37,99,235,0.52)] dark:hover:shadow-[0_0_32px_rgba(96,165,250,0.55)] hover:-translate-y-0.5 active:scale-[0.98]",
+                    "border border-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3B82F6] focus-visible:ring-offset-2 dark:focus-visible:ring-offset-[#0B1220]"
+                  )}
+                >
+                  <Sparkles
+                    className="hidden xl:inline-block h-4 w-4 text-blue-100"
+                    aria-hidden="true"
+                  />
+                  <span>{t("cta")}</span>
+                  <ArrowRight className="h-3.5 w-3.5 xl:h-4 xl:w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+                </Link>
+              )}
             </>
           )}
         </div>
@@ -483,18 +504,33 @@ export function Navbar() {
                     <span>{t("login")}</span>
                   </Link>
 
-                  <a
-                    href="#waitlist"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className={cn(
-                      "w-full flex items-center justify-center gap-2 rounded-xl py-3.5 px-4 text-base font-bold text-white transition-all duration-200",
-                      "bg-gradient-to-r from-[#2563EB] via-[#3B82F6] to-[#2563EB] shadow-[0_0_24px_rgba(37,99,235,0.35)] active:scale-[0.98]"
-                    )}
-                  >
-                    <Sparkles className="h-4 w-4 text-blue-100" aria-hidden="true" />
-                    <span>{t("cta")}</span>
-                    <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                  </a>
+                  {isHome ? (
+                    <a
+                      href="#waitlist"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className={cn(
+                        "w-full flex items-center justify-center gap-2 rounded-xl py-3.5 px-4 text-base font-bold text-white transition-all duration-200",
+                        "bg-gradient-to-r from-[#2563EB] via-[#3B82F6] to-[#2563EB] shadow-[0_0_24px_rgba(37,99,235,0.35)] active:scale-[0.98]"
+                      )}
+                    >
+                      <Sparkles className="h-4 w-4 text-blue-100" aria-hidden="true" />
+                      <span>{t("cta")}</span>
+                      <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                    </a>
+                  ) : (
+                    <Link
+                      href={{ pathname: "/", hash: "waitlist" }}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className={cn(
+                        "w-full flex items-center justify-center gap-2 rounded-xl py-3.5 px-4 text-base font-bold text-white transition-all duration-200",
+                        "bg-gradient-to-r from-[#2563EB] via-[#3B82F6] to-[#2563EB] shadow-[0_0_24px_rgba(37,99,235,0.35)] active:scale-[0.98]"
+                      )}
+                    >
+                      <Sparkles className="h-4 w-4 text-blue-100" aria-hidden="true" />
+                      <span>{t("cta")}</span>
+                      <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                    </Link>
+                  )}
                 </>
               )}
             </div>

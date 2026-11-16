@@ -40,6 +40,7 @@ export interface CompanyEntity {
   city: string;
   fleetSize?: string;
   cargoTypes?: string[];
+  inviteCode?: string;
   createdAt: string;
 }
 

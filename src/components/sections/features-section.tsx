@@ -20,18 +20,21 @@ export function FeaturesSection() {
       desc: t("f2Desc"),
       icon: MapPin,
       color: "text-primary bg-primary/10 border-primary/20",
+      isComingSoon: true,
     },
     {
       title: t("f3Title"),
       desc: t("f3Desc"),
       icon: CheckCheck,
       color: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20",
+      isComingSoon: true,
     },
     {
       title: t("f4Title"),
       desc: t("f4Desc"),
       icon: Repeat,
       color: "text-amber-400 bg-amber-500/10 border-amber-500/20",
+      isComingSoon: true,
     },
     {
       title: t("f5Title"),
@@ -44,6 +47,7 @@ export function FeaturesSection() {
       desc: t("f6Desc"),
       icon: Send,
       color: "text-sky-400 bg-sky-500/10 border-sky-500/20",
+      isComingSoon: true,
     },
   ];
 
@@ -73,19 +77,28 @@ export function FeaturesSection() {
             return (
               <div
                 key={idx}
-                className="group rounded-3xl border border-border/70 bg-card/95 p-7 sm:p-8 shadow-sm transition-all duration-200 hover:border-primary/50 hover:bg-card hover:-translate-y-1"
+                className="group rounded-3xl border border-border/70 bg-card/95 p-7 sm:p-8 shadow-sm transition-all duration-200 hover:border-primary/50 hover:bg-card hover:-translate-y-1 flex flex-col justify-between"
               >
-                <div
-                  className={`inline-flex h-12 w-12 items-center justify-center rounded-2xl border ${item.color} mb-5 shadow-sm`}
-                >
-                  <Icon className="h-6 w-6" aria-hidden="true" />
+                <div>
+                  <div className="flex items-center justify-between mb-5">
+                    <div
+                      className={`inline-flex h-12 w-12 items-center justify-center rounded-2xl border ${item.color} shadow-sm`}
+                    >
+                      <Icon className="h-6 w-6" aria-hidden="true" />
+                    </div>
+                    {item.isComingSoon && (
+                      <span className="inline-flex items-center rounded-full bg-amber-500/10 border border-amber-500/20 px-2.5 py-0.5 text-[11px] font-semibold text-amber-600 dark:text-amber-400">
+                        {t("comingSoonBadge")}
+                      </span>
+                    )}
+                  </div>
+                  <h3 className="font-heading text-xl font-bold text-foreground group-hover:text-primary transition-colors">
+                    {item.title}
+                  </h3>
+                  <p className="mt-3 text-sm sm:text-base text-muted-foreground leading-relaxed">
+                    {item.desc}
+                  </p>
                 </div>
-                <h3 className="font-heading text-xl font-bold text-foreground group-hover:text-primary transition-colors">
-                  {item.title}
-                </h3>
-                <p className="mt-3 text-sm sm:text-base text-muted-foreground leading-relaxed">
-                  {item.desc}
-                </p>
               </div>
             );
           })}

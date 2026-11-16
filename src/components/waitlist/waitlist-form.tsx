@@ -24,6 +24,15 @@ export function WaitlistForm({ id = "waitlist-form", className }: WaitlistFormPr
   const t = useTranslations("waitlistForm");
   const tVal = useTranslations("validation");
   const locale = useLocale() as "uz" | "ru" | "en";
+  const uid = React.useId();
+
+  const fullNameId = `${uid}-fullName`;
+  const phoneId = `${uid}-phone`;
+  const companyNameId = `${uid}-companyName`;
+  const roleId = `${uid}-role`;
+  const fleetSizeId = `${uid}-fleetSize`;
+  const preferredLanguageId = `${uid}-preferredLanguage`;
+  const hpId = `${uid}-hp_company_website`;
 
   const [turnstileToken, setTurnstileToken] = React.useState<string>("");
   const [submissionState, setSubmissionState] = React.useState<{
@@ -63,6 +72,25 @@ export function WaitlistForm({ id = "waitlist-form", className }: WaitlistFormPr
   const onSubmit = async (data: WaitlistInput) => {
     setSubmissionState({ isSuccess: false, isDuplicate: false });
 
+    // Client-side duplicate check
+    const cleanPhone = data.phone.replace(/[^\d+]/g, "");
+    if (typeof window !== "undefined") {
+      try {
+        const stored = window.localStorage.getItem("transflow_waitlist_phones");
+        const phones: string[] = stored ? JSON.parse(stored) : [];
+        if (phones.includes(cleanPhone)) {
+          setSubmissionState({
+            isSuccess: false,
+            isDuplicate: true,
+            errorMessage: t("duplicateMessage"),
+          });
+          return;
+        }
+      } catch {
+        // Ignore JSON parse errors
+      }
+    }
+
     // Include turnstile token
     const payload = {
       ...data,
@@ -72,6 +100,18 @@ export function WaitlistForm({ id = "waitlist-form", className }: WaitlistFormPr
     const result = await submitWaitlistAction(payload);
 
     if (result.success) {
+      if (typeof window !== "undefined") {
+        try {
+          const stored = window.localStorage.getItem("transflow_waitlist_phones");
+          const phones: string[] = stored ? JSON.parse(stored) : [];
+          if (!phones.includes(cleanPhone)) {
+            phones.push(cleanPhone);
+            window.localStorage.setItem("transflow_waitlist_phones", JSON.stringify(phones));
+          }
+        } catch {
+          // Ignore
+        }
+      }
       setSubmissionState({ isSuccess: true, isDuplicate: false });
       reset();
     } else {
@@ -204,18 +244,19 @@ export function WaitlistForm({ id = "waitlist-form", className }: WaitlistFormPr
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5" noValidate>
           {/* Honeypot field (hidden from genuine users, traps spam bots) */}
           <div
-            className="absolute -left-[9999px] opacity-0 pointer-events-none -z-50"
+            className="absolute -left-[9999px] opacity-0 pointer-events-none -z-50 select-none overflow-hidden h-0 w-0"
             aria-hidden="true"
             tabIndex={-1}
           >
-            <label htmlFor="hp_company_website" className="sr-only">
+            <label htmlFor={hpId} className="sr-only" aria-hidden="true">
               Website
             </label>
             <input
-              id="hp_company_website"
+              id={hpId}
               type="text"
               tabIndex={-1}
               autoComplete="off"
+              aria-hidden="true"
               {...register("hp_company_website")}
             />
           </div>
@@ -223,17 +264,17 @@ export function WaitlistForm({ id = "waitlist-form", className }: WaitlistFormPr
           {/* Full Name & Phone Number */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <Label htmlFor="fullName">{t("fullNameLabel")}</Label>
+              <Label htmlFor={fullNameId}>{t("fullNameLabel")}</Label>
               <Input
-                id="fullName"
+                id={fullNameId}
                 type="text"
                 placeholder={t("fullNamePlaceholder")}
                 aria-invalid={Boolean(errors.fullName)}
-                aria-describedby={errors.fullName ? "fullName-error" : undefined}
+                aria-describedby={errors.fullName ? `${fullNameId}-error` : undefined}
                 {...register("fullName")}
               />
               {errors.fullName && (
-                <p id="fullName-error" className="text-xs text-rose-500 font-medium">
+                <p id={`${fullNameId}-error`} className="text-xs text-rose-500 font-medium">
                   {tVal(errors.fullName.message?.replace("validation.", "") as any) ||
                     errors.fullName.message}
                 </p>
@@ -241,17 +282,17 @@ export function WaitlistForm({ id = "waitlist-form", className }: WaitlistFormPr
             </div>
 
             <div className="space-y-1.5">
-              <Label htmlFor="phone">{t("phoneLabel")}</Label>
+              <Label htmlFor={phoneId}>{t("phoneLabel")}</Label>
               <Input
-                id="phone"
+                id={phoneId}
                 type="tel"
                 placeholder={t("phonePlaceholder")}
                 aria-invalid={Boolean(errors.phone)}
-                aria-describedby={errors.phone ? "phone-error" : undefined}
+                aria-describedby={errors.phone ? `${phoneId}-error` : undefined}
                 {...register("phone")}
               />
               {errors.phone && (
-                <p id="phone-error" className="text-xs text-rose-500 font-medium">
+                <p id={`${phoneId}-error`} className="text-xs text-rose-500 font-medium">
                   {tVal(errors.phone.message?.replace("validation.", "") as any) ||
                     errors.phone.message}
                 </p>
@@ -261,17 +302,17 @@ export function WaitlistForm({ id = "waitlist-form", className }: WaitlistFormPr
 
           {/* Company Name */}
           <div className="space-y-1.5">
-            <Label htmlFor="companyName">{t("companyNameLabel")}</Label>
+            <Label htmlFor={companyNameId}>{t("companyNameLabel")}</Label>
             <Input
-              id="companyName"
+              id={companyNameId}
               type="text"
               placeholder={t("companyNamePlaceholder")}
               aria-invalid={Boolean(errors.companyName)}
-              aria-describedby={errors.companyName ? "companyName-error" : undefined}
+              aria-describedby={errors.companyName ? `${companyNameId}-error` : undefined}
               {...register("companyName")}
             />
             {errors.companyName && (
-              <p id="companyName-error" className="text-xs text-rose-500 font-medium">
+              <p id={`${companyNameId}-error`} className="text-xs text-rose-500 font-medium">
                 {tVal(errors.companyName.message?.replace("validation.", "") as any) ||
                   errors.companyName.message}
               </p>
@@ -281,8 +322,8 @@ export function WaitlistForm({ id = "waitlist-form", className }: WaitlistFormPr
           {/* Role & Fleet Size */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <Label htmlFor="role">{t("roleLabel")}</Label>
-              <Select id="role" {...register("role")}>
+              <Label htmlFor={roleId}>{t("roleLabel")}</Label>
+              <Select id={roleId} {...register("role")}>
                 <option value="owner">{t("roleOwner")}</option>
                 <option value="dispatcher">{t("roleDispatcher")}</option>
                 <option value="driver">{t("roleDriver")}</option>
@@ -297,8 +338,8 @@ export function WaitlistForm({ id = "waitlist-form", className }: WaitlistFormPr
             </div>
 
             <div className="space-y-1.5">
-              <Label htmlFor="fleetSize">{t("fleetLabel")}</Label>
-              <Select id="fleetSize" {...register("fleetSize")}>
+              <Label htmlFor={fleetSizeId}>{t("fleetLabel")}</Label>
+              <Select id={fleetSizeId} {...register("fleetSize")}>
                 <option value="1-4">{t("fleet1_4")}</option>
                 <option value="5-15">{t("fleet5_15")}</option>
                 <option value="16-30">{t("fleet16_30")}</option>
@@ -315,8 +356,8 @@ export function WaitlistForm({ id = "waitlist-form", className }: WaitlistFormPr
 
           {/* Preferred Language */}
           <div className="space-y-1.5">
-            <Label htmlFor="preferredLanguage">{t("langLabel")}</Label>
-            <Select id="preferredLanguage" {...register("preferredLanguage")}>
+            <Label htmlFor={preferredLanguageId}>{t("langLabel")}</Label>
+            <Select id={preferredLanguageId} {...register("preferredLanguage")}>
               <option value="uz">{t("langUz")}</option>
               <option value="ru">{t("langRu")}</option>
               <option value="en">{t("langEn")}</option>

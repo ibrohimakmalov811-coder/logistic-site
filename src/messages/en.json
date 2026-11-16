@@ -15,7 +15,7 @@
     "badge": "Next-Generation Logistics in Uzbekistan",
     "titlePrefix": "Replace the chaos of calls and chats with —",
     "titleHighlight": "one clear system",
-    "subtitle": "Telegram-first dispatching, live GPS tracking, and instant proof of delivery for fleets with 5 to 30 trucks and local distributors in Uzbekistan.",
+    "subtitle": "Dispatch management for small and medium fleets: structured order dispatching, with planned GPS tracking and proof-of-delivery integration.",
     "ctaPrimary": "Join Early Access",
     "ctaSecondary": "See How It Works",
     "conceptLabel": "Concept UI — Currently in active development",
@@ -54,34 +54,36 @@
   },
   "howItWorks": {
     "badge": "Process",
+    "comingSoonBadge": "Coming soon",
     "title": "Full control in three simple steps",
-    "subtitle": "No heavy software installations or steep learning curves. Dispatchers use a clean web board; drivers stay in familiar Telegram.",
+    "subtitle": "No complex software required. Dispatchers manage from their desktop, maintaining clear communication with drivers.",
     "step1Number": "01",
     "step1Title": "Create Order",
     "step1Desc": "The dispatcher enters trip details, address, and deadline in the web panel or confirms a customer request.",
     "step2Number": "02",
-    "step2Title": "Assign and Track Live",
-    "step2Desc": "Drivers receive shipment briefs directly in their personal Telegram bot. Both dispatchers and clients follow real-time progress on the map.",
+    "step2Title": "Driver assignment and trip tracking",
+    "step2Desc": "The driver receives order details. The dispatcher tracks route progress through status updates (live GPS map planned for next release).",
     "step3Number": "03",
-    "step3Title": "Confirm Delivery (PoD)",
-    "step3Desc": "Upon handover, the driver submits a signed bill of lading photo or signature via the bot. All parties receive instant verified confirmation."
+    "step3Title": "Proof of delivery and trip closure",
+    "step3Desc": "Upon cargo handover, proof of delivery is recorded and the trip is closed in the system (automated photo submission via Telegram bot is planned)."
   },
   "features": {
     "badge": "Capabilities",
+    "comingSoonBadge": "Coming soon",
     "title": "Engineered for the real needs of small and mid-size fleets",
     "subtitle": "Practical, focused tools designed to simplify your everyday dispatching operations:",
     "f1Title": "Smart Dispatching",
     "f1Desc": "Centralize all ongoing shipments, idle vehicles, and assigned trips in one intuitive board with color-coded statuses.",
     "f2Title": "Live GPS Tracking",
-    "f2Desc": "Monitor real-time transit speeds, stationary idle times, and estimated times of arrival (ETA) on an interactive map.",
+    "f2Desc": "Tracking vehicle speed, stops, and estimated arrival time (ETA) on map (in development, scheduled for the next phase).",
     "f3Title": "Telegram Proof of Delivery (PoD)",
-    "f3Desc": "Drivers snap signed waybills or record digital sign-offs directly inside Telegram, syncing immediately to order files.",
+    "f3Desc": "Uploading delivery notes (waybill) or recipient signatures as proof of delivery (planned feature).",
     "f4Title": "Backhaul Matching",
     "f4Desc": "Match trucks returning empty from regional deliveries with available return cargo to drastically reduce deadhead mileage.",
     "f5Title": "Reports and Analytics",
     "f5Desc": "Track transit duration, root causes of delays, cost per trip, fuel metrics, and individual driver performance trends.",
     "f6Title": "Telegram-First Architecture",
-    "f6Desc": "Drivers do not need complex app downloads or training. Operations run seamlessly through their existing Telegram messenger."
+    "f6Desc": "Planned Telegram-bot integration so drivers can receive assignments without installing complex new software."
   },
   "backhaul": {
     "badge": "Efficiency",
@@ -400,7 +402,10 @@
       "inviteCodePlaceholder": "e.g. ABCD-2K7M",
       "inviteCodeRequiredError": "An invite code is required for drivers and dispatchers.",
       "inviteCodeFormatError": "Invalid invite code format (e.g. ABCD-2K7M).",
-      "temporaryPasswordHint": "Use a temporary password, not one you use elsewhere.",
+      "companyNameLabel": "Company name",
+      "companyNamePlaceholder": "e.g. Silk Road Logistics",
+      "companyNameHint": "An 8-character company invite code will be automatically generated.",
+      "companyNameRequired": "Please enter your company name.",
       "emailPlaceholder": "email@example.com"
     },
     "verifyEmail": {
@@ -582,7 +587,11 @@
       "colPickup": "Pickup",
       "unassigned": "Unassigned",
       "recentOrdersSubtitle": "Latest assigned and active orders",
-      "noOrders": "No orders found"
+      "noOrders": "No orders found",
+      "companyInviteCodeTitle": "Company invite code",
+      "companyInviteCodeHint": "Drivers and dispatchers enter this code during registration to join your company.",
+      "copyCode": "Copy code",
+      "codeCopied": "Copied!"
     },
     "orders": {
       "pageTitle": "Orders",
@@ -751,6 +760,8 @@
       "cityLabel": "City",
       "legalFormLabel": "Legal form",
       "fleetSizeLabel": "Fleet size",
+      "inviteCodeLabel": "Company invite code",
+      "copyCode": "Copy",
       "saveCompanyButton": "Save changes",
       "ownerOnlyNotice": "Only the company owner can edit company details.",
       "teamSectionTitle": "Team & dispatchers",

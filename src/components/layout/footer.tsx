@@ -6,12 +6,14 @@ import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { LanguageSwitcher } from "./language-switcher";
 import { Truck, Mail, Phone, MapPin, Send, Linkedin } from "lucide-react";
-import { Link } from "@/i18n/routing";
+import { Link, usePathname } from "@/i18n/routing";
 
 export function Footer() {
   const t = useTranslations("footer");
   const tNav = useTranslations("nav");
   const locale = useLocale() as "uz" | "ru" | "en";
+  const pathname = usePathname();
+  const isHome = pathname === "/";
 
   const hasEmail = Boolean(siteConfig.contact.email);
   const hasPhone = Boolean(siteConfig.contact.phone || siteConfig.contact.phoneDisplay);
@@ -20,6 +22,13 @@ export function Footer() {
   const linkedinUrl = siteConfig.socials.linkedin;
   const hasAnySocial = Boolean(telegramUrl || linkedinUrl);
   const hasAnyContact = hasEmail || hasPhone || hasAddress || hasAnySocial;
+
+  const navSectionLinks = [
+    { hash: "problem", label: tNav("problem") },
+    { hash: "how-it-works", label: tNav("howItWorks") },
+    { hash: "features", label: tNav("features") },
+    { hash: "faq", label: tNav("faq") },
+  ];
 
   return (
     <footer className="border-t border-border/70 bg-card/90 pt-16 pb-12 text-sm text-muted-foreground">
@@ -52,29 +61,25 @@ export function Footer() {
               {t("navigationTitle")}
             </h4>
             <ul className="space-y-2 text-sm">
-              <li>
-                <a href="#problem" className="hover:text-foreground transition-colors">
-                  {tNav("problem")}
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#how-it-works"
-                  className="hover:text-foreground transition-colors"
-                >
-                  {tNav("howItWorks")}
-                </a>
-              </li>
-              <li>
-                <a href="#features" className="hover:text-foreground transition-colors">
-                  {tNav("features")}
-                </a>
-              </li>
-              <li>
-                <a href="#faq" className="hover:text-foreground transition-colors">
-                  {tNav("faq")}
-                </a>
-              </li>
+              {navSectionLinks.map((item) => (
+                <li key={item.hash}>
+                  {isHome ? (
+                    <a
+                      href={`#${item.hash}`}
+                      className="hover:text-foreground transition-colors"
+                    >
+                      {item.label}
+                    </a>
+                  ) : (
+                    <Link
+                      href={{ pathname: "/", hash: item.hash }}
+                      className="hover:text-foreground transition-colors"
+                    >
+                      {item.label}
+                    </Link>
+                  )}
+                </li>
+              ))}
             </ul>
           </div>
 

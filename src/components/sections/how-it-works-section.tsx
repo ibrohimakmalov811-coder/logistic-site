@@ -22,6 +22,7 @@ export function HowItWorksSection() {
       desc: t("step2Desc"),
       icon: Navigation,
       accent: "from-primary to-amber-500",
+      isComingSoon: true,
     },
     {
       number: t("step3Number"),
@@ -29,6 +30,7 @@ export function HowItWorksSection() {
       desc: t("step3Desc"),
       icon: CheckCircle2,
       accent: "from-amber-500 to-emerald-500",
+      isComingSoon: true,
     },
   ];
 
@@ -72,9 +74,16 @@ export function HowItWorksSection() {
                       <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br text-primary-foreground shadow-lg shadow-primary/20 bg-primary">
                         <Icon className="h-7 w-7" aria-hidden="true" />
                       </div>
-                      <span className="font-mono text-3xl font-black text-muted-foreground/30">
-                        {step.number}
-                      </span>
+                      <div className="flex items-center gap-2">
+                        {step.isComingSoon && (
+                          <span className="inline-flex items-center rounded-full bg-amber-500/10 border border-amber-500/20 px-2.5 py-0.5 text-[11px] font-semibold text-amber-600 dark:text-amber-400">
+                            {t("comingSoonBadge")}
+                          </span>
+                        )}
+                        <span className="font-mono text-3xl font-black text-muted-foreground/30">
+                          {step.number}
+                        </span>
+                      </div>
                     </div>
 
                     {/* Step Title & Description */}

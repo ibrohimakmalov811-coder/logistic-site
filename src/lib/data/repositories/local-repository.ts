@@ -25,7 +25,7 @@ import {
   OrderQueryOptions,
 } from "./contracts";
 import { loadSnapshot, saveSnapshot } from "../storage-engine";
-import { formatInviteCodePreview, generateInviteCode, hashInviteCode } from "../crypto";
+import { formatInviteCodePreview, generateInviteCode, hashInviteCode, normalizeInviteCode } from "../crypto";
 import { getBlobUrl, saveBase64AsBlob, saveBlob } from "../idb";
 import { syncChannel } from "../sync-channel";
 
@@ -238,6 +238,7 @@ export class LocalCompanyRepository implements ICompanyRepository {
     cargoTypes?: string[]
   ): Promise<CompanyEntity> {
     const snapshot = loadSnapshot();
+    const rawInviteCode = generateInviteCode();
     const company: CompanyEntity = {
       id: generateId(),
       ownerId,
@@ -245,6 +246,7 @@ export class LocalCompanyRepository implements ICompanyRepository {
       city: city.trim(),
       fleetSize,
       cargoTypes,
+      inviteCode: rawInviteCode,
       createdAt: new Date().toISOString(),
     };
 
@@ -412,8 +414,22 @@ export class LocalInviteRepository implements IInviteRepository {
     rawCode: string,
     userRole: UserRole
   ): Promise<{ valid: boolean; error?: string }> {
-    const codeHash = await hashInviteCode(rawCode);
+    const cleanRaw = rawCode.trim().toUpperCase();
+    const normalizedRaw = normalizeInviteCode(cleanRaw);
     const snapshot = loadSnapshot();
+
+    // 1. Check if it matches any company-level invite code
+    const matchingCompany = snapshot.companies.find((c) => {
+      if (!c.inviteCode) return false;
+      return normalizeInviteCode(c.inviteCode) === normalizedRaw;
+    });
+
+    if (matchingCompany) {
+      return { valid: true };
+    }
+
+    // 2. Otherwise check single-use invites
+    const codeHash = await hashInviteCode(rawCode);
     const invite = snapshot.invites.find((inv) => inv.codeHash === codeHash);
 
     if (!invite) {
@@ -456,9 +472,45 @@ export class LocalInviteRepository implements IInviteRepository {
       }
     }
 
-    const codeHash = await hashInviteCode(rawCode);
+    const cleanRaw = rawCode.trim().toUpperCase();
+    const normalizedRaw = normalizeInviteCode(cleanRaw);
     const snapshot = loadSnapshot();
+    const companyRepo = new LocalCompanyRepository();
 
+    // Check if it matches a company-level master invite code
+    const matchingCompany = snapshot.companies.find((c) => {
+      if (!c.inviteCode) return false;
+      return normalizeInviteCode(c.inviteCode) === normalizedRaw;
+    });
+
+    if (matchingCompany) {
+      await companyRepo.addMember(matchingCompany.id, userId, userRole);
+
+      if (userRole === "driver") {
+        const existingDp = snapshot.driverProfiles.find((dp) => dp.userId === userId);
+        if (!existingDp) {
+          snapshot.driverProfiles.push({
+            userId,
+            companyId: matchingCompany.id,
+            licenseCategory: "B, C, CE",
+            experienceYears: 3,
+            vehicleId: null,
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
+          });
+          saveSnapshot(snapshot);
+        }
+      }
+
+      if (typeof window !== "undefined") {
+        window.sessionStorage.removeItem(INVITE_ATTEMPTS_KEY);
+      }
+
+      syncChannel.broadcast("INVITE_REDEEMED", { companyId: matchingCompany.id, userId });
+      return { success: true, companyId: matchingCompany.id };
+    }
+
+    const codeHash = await hashInviteCode(rawCode);
     const invite = snapshot.invites.find((inv) => inv.codeHash === codeHash);
 
     if (!invite) {
@@ -490,8 +542,22 @@ export class LocalInviteRepository implements IInviteRepository {
     invite.usedBy = userId;
 
     // Link user to company membership
-    const companyRepo = new LocalCompanyRepository();
     await companyRepo.addMember(invite.companyId, userId, userRole);
+
+    if (userRole === "driver") {
+      const existingDp = snapshot.driverProfiles.find((dp) => dp.userId === userId);
+      if (!existingDp) {
+        snapshot.driverProfiles.push({
+          userId,
+          companyId: invite.companyId,
+          licenseCategory: "B, C, CE",
+          experienceYears: 3,
+          vehicleId: null,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+        });
+      }
+    }
 
     saveSnapshot(snapshot);
 
