@@ -23,7 +23,7 @@
     "@upstash/ratelimit": "^2.0.5",
     "@upstash/redis": "^1.34.4",
     "clsx": "^2.1.1",
-    "lucide-react": "^0.475.0",
+    "lucide-react": "^1.74.0",
     "motion": "^12.4.7",
     "next": "15.5.29",
     "next-intl": "^3.26.3",
